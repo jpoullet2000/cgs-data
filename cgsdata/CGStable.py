@@ -31,7 +31,7 @@ class CGStable(object):
         Table type: %s
         Schema source: %s""" % (self.name, self.machine_ip,self.database, self.table_type, self.source))
 
-    def readingTableSourceFile(self.source,self.table_type):
+    def readingTableSourceFile():
         """ Reads a source file to rebuild the schema of the table corresponding to the selected type
         The file is a CSV file with in rows the variable/field names and in columns the table type (ex:hbase, mysql)
         The table_type should be the name of the chosen column.
@@ -51,14 +51,14 @@ class CGStable(object):
         return "Table name: %s\nMachine IP: %s\nDatabase: %s\nTable type: %s" % (self.name, self.machine_ip,self.database, self.table_type)
 
     
-class metastore_table(CGStable):
+class MetastoreTable(CGStable):
     """ A metastore table in the Hadoop framework that can be further queried by Hive, Impala, Pig, etc
 
     Attributes:
        
     """
     def __init__(self, name, machine_ip, database="default"):
-        CGStable.__init__(self, name, machine_ip, database, table_type="Impala")
+        CGStable.__init__(self, name, machine_ip, database, table_type="metastore")
 
     def createTable(self):
         """ Create a metastore table
@@ -72,12 +72,12 @@ class metastore_table(CGStable):
 
         ## creating the metastore table by executing the Hive script on the remote machine (SSH)
 
-class hbase_table(CGStable):
+class HBaseTable(CGStable):
     """ An HBase table in the Hadoop framework
        
     """
     def __init__(self, name, machine_ip, database="default"):
-        CGStable.__init__(self, name, machine_ip, database, table_type="Impala")
+        CGStable.__init__(self, name, machine_ip, database, table_type="hbase")
         
     def createTable(self):
         """ Create an HBase table
@@ -91,14 +91,24 @@ class hbase_table(CGStable):
             The field values should follow the syntax: <column_family>.<column_qualifier>
             """
             
+            
         ## reading the source file
-        field_list = CGStable.readingTableSourceFile(self.source,self.table_type):
+        field_list = self.readingTableSourceFile()
         ## building the HBase schema
         [table_name,column_families_list] = buidingHBaseSchema(field_list)
         ## create the HBase table by executing the HBase script on the remote machine (SSH)
         
 
 
+class AvroSchema(CGStable):
+    """ An AVRO schema
+    
+    """ 
+    def __init__(self, name, machine_ip, database="default"):
+        CGStable.__init__(self, name, machine_ip, database, table_type="avro")
+
+    def createSchema(self):
+        """ Create an AVRO schema
+
+        """
         
-
-

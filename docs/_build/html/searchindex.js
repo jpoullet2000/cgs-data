@@ -1,0 +1,1 @@
+Search.setIndex({objtypes:{},terms:{search:1,page:1,index:1},objects:{},filenames:["cgsdata","index"],objnames:{},envversion:43,titleterms:{packag:0,modul:0,welcom:1,document:1,tabl:1,content:0,cgsdata:[0,1],indic:1,cgstabl:0,submodul:0},titles:["cgsdata package","Welcome to cgsdata&#8217;s documentation!"]})
