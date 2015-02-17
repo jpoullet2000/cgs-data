@@ -14,7 +14,7 @@ sdist
 develop-eggs
 lib
 lib64
-
+cgsdata_env
 
 # Installer logs
 pip-log.txt
