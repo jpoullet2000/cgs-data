@@ -1,3 +1,14 @@
+import os
+
+validDatabases = ("metastore","mysql","hbase","avro")
+BASE_DIR = os.path.dirname(os.path.realpath(__file__))
+
+class ReadingDataFileException(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+    def __str__(self):
+        return self.msg
+
 class CGStable(object):
     """ A CGS table (CGS=Centralized genomic system)
 
@@ -31,17 +42,56 @@ class CGStable(object):
         Table type: %s
         Schema source: %s""" % (self.name, self.machine_ip,self.database, self.table_type, self.source))
 
-    def readingTableSourceFile():
+    def readingTableSourceFile(self):
         """ Reads a source file to rebuild the schema of the table corresponding to the selected type
-        The file is a CSV file with in rows the variable/field names and in columns the table type (ex:hbase, mysql)
-        The table_type should be the name of the chosen column.
-        The CSV file may contain more than one column, only the table_type will be selected.   
-        
+        The file is a xlsx file with in rows the variable/field names and in columns the table type (ex:hbase, metastore)
+        The xlsx file contains 2 sheets: one for NoSQL and another one for MySQL and there are named so (sheet1=NoSQL, sheet2=MySQL).
+        The data/data.conf file makes the correspondences between the table_type and the column names in the sheet
+        The xlsx file may contain more than one column, only the ones corresponding to *table_type* will be selected.   
+        This function is very specific and may not be convenient for any use case
         """
+        def tableTypes2columnNames(f):
+            """ Make the correspondences between the column names and the table type
+                It returns a dictionary: key = table_type, value = column name
+
+                :param f: filename (data/data.conf file)
+                :type f: string
+                :returns type_colnames: dictionary with key = table_type, value = column name  
+            """
+            type_colnames = dict()
+            h = open(f)
+            while 1:
+                line = h.readline()
+                if not line:
+                    break
+                if not (line.startswith('#') or line.startswith('[')) : ## do not read comment or category table (NoSQL, MySQL)
+                    ls = line.strip().split('=')
+                    type_colnames[ls[0]]=ls[1]
+            h.close()
+            return(type_colnames)
+            
         ## check that table_type is not undefined
-        
+        if self.table_type not in validDatabases:
+            raise ReadingDataFileException("You must be defined a table type: " + ",".join(validDatabases))
+
+        ## check that the data.conf file exists
+        dataconf_file = os.path.join("{}","data","data.conf").format(BASE_DIR)
+        if not os.path.isfile(dataconf_file):
+            raise ReadingDataFileException("The data configuration file 'data.conf' does not exist. It should be added in your $CGSHOME/cgsdata/data/ directory")
+
+        ## create a source file if none is given 
+        if self.source == ""
+            self.source = os.path.join("{}","data","dataTable.xlsx").format(BASE_DIR)
+
+        ## check that the dataTable.xlsx file exists
+        if not os.path.isfile(self.source):
+            raise ReadingDataFileException("The data file containing the description of the tables does not exist. It should be added in your $CGSHOME/cgsdata/data/ directory or explicitly given when constructing the CGStable object")
+
+        ## reading the correspondence file data/data.conf: table_type -- column_name
+        type_colnames = tableTypes2columnNames(dataconf_file)
+                        
         ## read the column names (header)
-    
+                
         ## check whether table_type is contained in the column names, otherwise return an error
     
         ## send the list of values for the selected column and return it  
@@ -68,6 +118,7 @@ class MetastoreTable(CGStable):
         """
         ## reading the source file
 
+        
         ## building the hive script
 
         ## creating the metastore table by executing the Hive script on the remote machine (SSH)
