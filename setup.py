@@ -3,6 +3,8 @@
 from setuptools import setup, find_packages
 import os, sys, re
 import codecs
+from sphinx.setup_command import BuildDoc
+cmdclass = {'build_sphinx': BuildDoc}
 
 try:
     from pypandoc import convert
@@ -17,17 +19,24 @@ def read(*parts):
     # intentionally *not* adding an encoding option to open
     return codecs.open(os.path.join(here, *parts), 'r').read()
     
-def find_version(*file_paths):
+def find_version_release(*file_paths):
     version_file = read(*file_paths)
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
     version_file, re.M)
     if version_match:
-        return version_match.group(1)
+        release = version_match.group(1)
+        version = re.search(r"^([0-9]*\.[0-9])*\.[0-9]*$",
+    release, re.M).group(1)
+        return [version,release]
     raise RuntimeError("Unable to find version string.")
 
+name = 'cgsdata'
+[version,release] = find_version_release('cgsdata','__init__.py')
+
 setup(
-    name='cgsdata',
-    version=find_version('cgsdata','__init__.py'),
+    name=name,
+    version=version,
+    release=release,
     url='https://github.com/jpoullet2000/cgs-data',
     license='Apache Software License',
     author='Jean-Baptiste Poullet',
@@ -40,6 +49,13 @@ setup(
     include_package_data=True,
     tests_require=['pytest'],
     test_suite='tests',
+    cmdclass=cmdclass,
+    command_options={
+           'build_sphinx': {
+               'project': ('setup.py', name),
+               'version': ('setup.py', version),
+               'release': ('setup.py', release)
+               }},
     classifiers = [
         'Programming Language :: Python',
          'License :: OSI Approved :: Apache Software License'
