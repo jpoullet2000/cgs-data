@@ -21,6 +21,8 @@
 * Check for unnecessary whitespace with `git diff --check` before committing.
 * Test coverage should be added soon to track whether 100% of the code is tested (see [coveralls.io](https://coveralls.io/r/jeffknupp/sandman?branch=develop) for more information).
 
+
+
 ## Submitting Changes
 
 * Push your changes to the feature branch in your fork of the repository.
