@@ -16,6 +16,7 @@
 * **cgs-data** uses git-flow as the git branching model
   * No commits should be made directly to `master`
   * [Install git-flow](https://github.com/nvie/gitflow) and create a `feature` branch like so: `$ git flow feature start <name of your feature>`
+  * Get used with git flow [here](http://danielkummer.github.io/git-flow-cheatsheet/)
 * Make commits of logical units.
 * Check for unnecessary whitespace with `git diff --check` before committing.
 * Test coverage should be added soon to track whether 100% of the code is tested (see [coveralls.io](https://coveralls.io/r/jeffknupp/sandman?branch=develop) for more information).

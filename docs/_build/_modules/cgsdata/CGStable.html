@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>cgsdata.CGStable &mdash; cgsdata 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="cgsdata 0.0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">cgsdata 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for cgsdata.CGStable</h1><div class="highlight"><pre>
+<div class="viewcode-block" id="CGStable"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGStable.CGStable">[docs]</a><span class="k">class</span> <span class="nc">CGStable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A CGS table (CGS=Centralized genomic system)</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        name (string): name of the database (chosen by the user)</span>
+<span class="sd">        machine_ip (string): machine ip (master node) to connect to for generating the database</span>
+<span class="sd">        source (string): source of information from which we build the schema of the table (typically a csv file) </span>
+<span class="sd">        database (string): database name (by default: &quot;default&quot;)</span>
+<span class="sd">        table_type (string): table type (ex: &quot;metastore&quot;, &quot;mysql&quot;, &quot;hbase&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">machine_ip</span><span class="p">,</span><span class="n">database</span><span class="o">=</span><span class="s">&quot;default&quot;</span><span class="p">,</span><span class="n">table_type</span><span class="o">=</span><span class="s">&quot;undefined&quot;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">machine_ip</span> <span class="o">=</span> <span class="n">machine_ip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="n">database</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">table_type</span> <span class="o">=</span> <span class="n">table_type</span>
+
+<div class="viewcode-block" id="CGStable.getName"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGStable.CGStable.getName">[docs]</a>    <span class="k">def</span> <span class="nf">getName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+</div>
+<div class="viewcode-block" id="CGStable.getMachineIP"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGStable.CGStable.getMachineIP">[docs]</a>    <span class="k">def</span> <span class="nf">getMachineIP</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine_ip</span>
+</div>
+<div class="viewcode-block" id="CGStable.getDatabaseName"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGStable.CGStable.getDatabaseName">[docs]</a>    <span class="k">def</span> <span class="nf">getDatabaseName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span>
+</div>
+<div class="viewcode-block" id="CGStable.show"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGStable.CGStable.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">        Table name: </span><span class="si">%s</span><span class="s"></span>
+<span class="s">        Machine IP: </span><span class="si">%s</span><span class="s"></span>
+<span class="s">        Database: </span><span class="si">%s</span><span class="s"></span>
+<span class="s">        Table type: </span><span class="si">%s</span><span class="s"></span>
+<span class="s">        Schema source: </span><span class="si">%s</span><span class="s">&quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine_ip</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="CGStable.readingTableSourceFile"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGStable.CGStable.readingTableSourceFile">[docs]</a>    <span class="k">def</span> <span class="nf">readingTableSourceFile</span><span class="p">():</span>
+        <span class="sd">&quot;&quot;&quot; Reads a source file to rebuild the schema of the table corresponding to the selected type</span>
+<span class="sd">        The file is a CSV file with in rows the variable/field names and in columns the table type (ex:hbase, mysql)</span>
+<span class="sd">        The table_type should be the name of the chosen column.</span>
+<span class="sd">        The CSV file may contain more than one column, only the table_type will be selected.   </span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c">## check that table_type is not undefined</span>
+        
+        <span class="c">## read the column names (header)</span>
+    
+        <span class="c">## check whether table_type is contained in the column names, otherwise return an error</span>
+    
+        <span class="c">## send the list of values for the selected column and return it  </span>
+
+        </div>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&quot;Table name: </span><span class="si">%s</span><span class="se">\n</span><span class="s">Machine IP: </span><span class="si">%s</span><span class="se">\n</span><span class="s">Database: </span><span class="si">%s</span><span class="se">\n</span><span class="s">Table type: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">machine_ip</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_type</span><span class="p">)</span>
+
+    </div>
+<div class="viewcode-block" id="MetastoreTable"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGStable.MetastoreTable">[docs]</a><span class="k">class</span> <span class="nc">MetastoreTable</span><span class="p">(</span><span class="n">CGStable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A metastore table in the Hadoop framework that can be further queried by Hive, Impala, Pig, etc</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">       </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">machine_ip</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s">&quot;default&quot;</span><span class="p">):</span>
+        <span class="n">CGStable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">machine_ip</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">table_type</span><span class="o">=</span><span class="s">&quot;metastore&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MetastoreTable.createTable"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGStable.MetastoreTable.createTable">[docs]</a>    <span class="k">def</span> <span class="nf">createTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Create a metastore table</span>
+<span class="sd">            This table is built using the Hive programming language which should be available on the &quot;machine_ip&quot; (permissions should be given).</span>
+<span class="sd">            SSH access should be allowed to built this table </span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c">## reading the source file</span>
+
+        <span class="c">## building the hive script</span>
+
+        <span class="c">## creating the metastore table by executing the Hive script on the remote machine (SSH)</span>
+</div></div>
+<div class="viewcode-block" id="HBaseTable"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGStable.HBaseTable">[docs]</a><span class="k">class</span> <span class="nc">HBaseTable</span><span class="p">(</span><span class="n">CGStable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; An HBase table in the Hadoop framework</span>
+<span class="sd">       </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">machine_ip</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s">&quot;default&quot;</span><span class="p">):</span>
+        <span class="n">CGStable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">machine_ip</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">table_type</span><span class="o">=</span><span class="s">&quot;hbase&quot;</span><span class="p">)</span>
+        
+<div class="viewcode-block" id="HBaseTable.createTable"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGStable.HBaseTable.createTable">[docs]</a>    <span class="k">def</span> <span class="nf">createTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Create an HBase table</span>
+<span class="sd">            This table is created using an HBase script that can be run from a similar command as:</span>
+<span class="sd">            $HBASE_HOME/bin/hbase shell createHBaseTable.sh &lt;hbase_table_name&gt;</span>
+<span class="sd">            HBase must be installed on the </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">buildingHBaseSchema</span><span class="p">(</span><span class="n">field_list</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Building a HBase schema (table, column families) from a list of field values</span>
+<span class="sd">            The field values should follow the syntax: &lt;column_family&gt;.&lt;column_qualifier&gt;</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            
+            
+        <span class="c">## reading the source file</span>
+        <span class="n">field_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">readingTableSourceFile</span><span class="p">()</span>
+        <span class="c">## building the HBase schema</span>
+        <span class="p">[</span><span class="n">table_name</span><span class="p">,</span><span class="n">column_families_list</span><span class="p">]</span> <span class="o">=</span> <span class="n">buidingHBaseSchema</span><span class="p">(</span><span class="n">field_list</span><span class="p">)</span>
+        <span class="c">## create the HBase table by executing the HBase script on the remote machine (SSH)</span>
+        
+
+</div></div>
+<div class="viewcode-block" id="AvroSchema"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGStable.AvroSchema">[docs]</a><span class="k">class</span> <span class="nc">AvroSchema</span><span class="p">(</span><span class="n">CGStable</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; An AVRO schema</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span> 
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">machine_ip</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s">&quot;default&quot;</span><span class="p">):</span>
+        <span class="n">CGStable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">machine_ip</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">table_type</span><span class="o">=</span><span class="s">&quot;avro&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AvroSchema.createSchema"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGStable.AvroSchema.createSchema">[docs]</a>    <span class="k">def</span> <span class="nf">createSchema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Create an AVRO schema</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        </div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">cgsdata 0.0.1 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, Jean-Baptiste Poullet.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

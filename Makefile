@@ -1,4 +1,4 @@
-.PHONY: docs clean build
+.PHONY: clean build docs
 
 clean:
 	rm -rf cgsdata_env
@@ -8,4 +8,5 @@ build:
 	pip install -r requirements.txt
 
 docs:
-	sphinx-apidoc -F -o docs cgsdata > /dev/null
+	sphinx-build -aE docs docs/_build > /dev/null	
+	#sphinx-apidoc -F -o docs cgsdata > /dev/null
