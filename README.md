@@ -23,6 +23,7 @@ It is simple, you just need to edit some configuration files. How does it work? 
 
 ### <a name="datastructureTree">Data structure folder tree</a>
 As mentioned previously, all files specific to a data structure are located in the same folder which has the name of the data structure. Here is an example of files that you will find in the *variants* data structure:
+```
 .
 +-- config.yml
 +-- reference.tsv
@@ -30,11 +31,13 @@ As mentioned previously, all files specific to a data structure are located in t
 	+-- variants-hbase.tsv
 	+-- sample-mysql.tsv
 	+-- ...
-
+```
 
 ### <a name="configFile">Config file</a>
 The config file is a YAML file with the following structure:
+
 ---
+
 dataStructureName: variants
 tables:
 	- name: sample
@@ -50,6 +53,7 @@ tables:
       source = variants.tsv
   
 ---
+
 where
 
 - *dataStructureName* is the name of the data structure and thus the name of the folder
