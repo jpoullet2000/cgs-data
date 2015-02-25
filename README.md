@@ -36,8 +36,7 @@ As mentioned previously, all files specific to a data structure are located in t
 ### <a name="configFile">Config file</a>
 The config file is a YAML file with the following structure:
 
----
-
+```
 dataStructureName: variants
 tables:
 	- name: sample
@@ -51,8 +50,7 @@ tables:
       description: variants table
       database: default
       source = variants.tsv
-  
----
+```
 
 where
 
