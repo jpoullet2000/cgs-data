@@ -62,17 +62,51 @@ where
 - *source* is the data file where the table fields are defined
 
 ### <a name="referenceFile">File with reference fields</a>
+The reference file is a tab-separated-value file with 2 columns:
+
+- **id**: field id (integer, *mandatory*, *must be unique*)
+- **name**: field name (string, *mandatory*)
+- **description**: field description (string, *mandatory*)
+- **type**: field type (['integer','string','boolean','date'], *optional*)
+
+The goal of this file is to list all fields that are found in the different tables/schema of the data structure. In the source files, one can refer to the reference field **id** or **name**. 
+If in the source file the type columns remains empty for one field, the parser will take the *type* value in the reference file for the corresponding field.
+
+Let's illustrate this. Suppose one of your row in *reference.tsv* is
+`10    gene_symbol    gene symbol    string`
+
+and a corresponding row in *sourceFiles/variants.tsv* is
+
+`10    variants.gene_symbol    `.
+
+Since there is no definition of the type in *sourceFiles/variants.tsv*, the parser takes the *type* value in *reference.tsv*, i.e. *string* in this case. Depending on the type of the table (HBase, MySQL, etc) the parser may choose the closest type it could find for that specific table. For instance, if *sourceFiles/variants.tsv* is a MySQL table, the parser will choose *text* as type for that variable. The *text* type in MySQL is very general and may contain any string. However, it may slow down the queries and takes more disk space that actually needed. So, in this kind of case, it is recommended to redefine a type in *sourceFiles/variants.tsv* which will be taken as default.
+
+The value *10* in both files indicates the reference field id. 
+
+### <a name="referenceFile">Source files for table generation</a>
+The source files are located in the folder *sourceFiles* of the corresponding data structure folder. 
+The syntax to be used in these files depends on the type of the table/schema (HBase, MySQL, AVRO, etc).
+We detail the syntax for:
+
+- [HBase](#hbaseSource)
+- [MySQL](#mysqlSource)
+- [AVRO](#avroSource)
+
+in the following subsections.
+
+#### <a name="hbaseSource">HBase table definition and generation</a>
 Under development.
 
-### AVRO schema
+#### <a name="mysqlSource">MySQL table definition and generation</a>
 An AVRO schema is not per se a table in a database but a file with the extension *.avsc*.
 Under development.
 
-### HBase table definition and generation
-Under development.
+#### <a name="avroSource">AVRO schema</a>
+An AVRO schema is not per se a table in a database but a file with the extension *.avsc*.
 
 ### MySQL table definition and generation
 Under development.
+
 
 ## Conversion of VCF files to AVRO
 Under development.
