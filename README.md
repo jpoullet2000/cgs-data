@@ -134,7 +134,7 @@ where
 - **description**: description of the field/variable (string, *mandatory*),
 - **substructures**: data substructure names where the field/variable is found, names should be the same as in the config file *config.yml* (string, *mandatory*),
 
-	* The field name is (usually) a construction of <table_name>.<field> (string, *mandatory*).
+	* The field name is (usually) a construction of `<table_name>.<field>` (string, *mandatory*).
 
 The goal of this file is to list all fields common to different data substructures. For instance, the field *R.SI* in HBase and the field *sample.sample_id* in MySQL are refering to the same thing, which is the project_sample_id. 
 
