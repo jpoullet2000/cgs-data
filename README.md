@@ -49,6 +49,7 @@ substructures:
       source: clinical.sql
 	  host: localhost
 	  user: admin 
+	  password: admin
 
 	- name: variants_hbase
       type: hbase
@@ -56,6 +57,8 @@ substructures:
       database: default
       source: variants_hbase.yml
 	  host: 192.168.1.42
+	  user: admin 
+	  password: admin
 
 	- name: variants_metastore
 	  type: metastore
@@ -63,6 +66,8 @@ substructures:
 	  database: default
 	  source: variants_metastore.yml
 	  host: 192.168.1.42
+	  user: admin 
+	  password: admin
 
 	- name: variants_api
 	  type: api
@@ -70,6 +75,8 @@ substructures:
 	  database: NULL
 	  source: variants_api.yml
 	  host: 192.168.1.42
+	  user: admin 
+	  password: admin
 
 ```
 
@@ -83,9 +90,28 @@ where
 - *source* is the data file where the data substructure is defined
 - *host* is the ip/url of the host machine
 - *user* is the user to connect to the database 
+- *password* is the user password to connect to the database
 
 No database will be created or updated for the API resources. The corresponding yaml file (here *variants_api.yml*) will be copied on the machine in the *~/.cgs* directory of the machine.
 This is used for mapping API resources to fields in our data structure. 
+Note that all info about the data substructures will be copied in a configuration file in`~/.cgs/cgs_config_file`. This file should be protected (ex: `chmod 600 ~/.cgs/cgs_config_file`. Here is how the file will look like:
+```
+[clinical]
+type=mysql
+database=default
+host=localhost
+port=3306
+user=admin
+password=admin
+[variants_hbase]
+type=hbase
+database=default
+host=localhost
+port=60000
+user=admin
+password=admin
+```
+
 
 ### <a name="referenceFile">File with reference fields</a>
 The reference file is a yaml file with the following structure:
@@ -180,7 +206,7 @@ A source file for HBase is a yaml file with the following structure:
 
 Here is an small example for illustration: 
 ```
-<variants>:
+variants:
 	- R:
 	  - SI:
 		type: string
@@ -193,6 +219,8 @@ Here is an small example for illustration:
 		type: float
 		description: "strand bias"
 ```
+
+where
 
 - *table_name*: table name in HBase (string)
 - *type*: type of the field (string)

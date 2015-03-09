@@ -1,0 +1,12 @@
+variants:
+    - R:
+	- SI:
+          type: string
+          description: "sample id"
+      	- GS:
+          type: string
+          description: "gene symbol"
+    - I:
+	- SB:
+          type: float
+          description: "strand bias"

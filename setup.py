@@ -47,8 +47,10 @@ setup(
     package_dir={'cgsdata': 'cgsdata'},
     package_data={'cgsdata': ['data/*.csv']},
     include_package_data=True,
-    tests_require=['pytest'],
-    test_suite='tests',
+    #tests_require=['pytest'],
+    #test_suite='tests',
+    tests_require=['nose2'],
+    test_suite='nose2.collector.collector',
     cmdclass=cmdclass,
     command_options={
            'build_sphinx': {

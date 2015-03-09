@@ -1,0 +1,21 @@
+dataStructureName: test
+substructures:
+    - name: clinical
+      type: mysql
+      description: clinical/phenomic database
+      database: clinical
+      source: clinical_mysql.sql
+      host: 127.0.0.1
+      port: 33306
+      user: root
+      password: cloudera 
+
+    - name: variants_hbase
+      type: hbase
+      description: variants table
+      database: default
+      source: variants_hbase.yml
+      host: localhost
+      port: 60000
+      user: admin
+      password: admin

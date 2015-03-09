@@ -1,0 +1,30 @@
+dataStructureName: variants
+substructures:
+    - name: clinical
+      type: mysql
+      description: clinical/phenomic database
+      database: default
+      source: clinical.sql
+      host: localhost
+      user: admin 
+
+    - name: variants_hbase
+      type: hbase
+      description: variants table
+      database: default
+      source: variants_hbase.yml
+      host: 192.168.1.42
+
+    - name: variants_metastore
+      type: metastore
+      description: variants in hive metastore
+      database: default
+      source: variants_metastore.yml
+      host: 192.168.1.42
+
+    - name: variants_api
+      type: api
+      description: variants resource available through API
+      database: NULL
+      source: variants_api.yml
+      host: 192.168.1.42

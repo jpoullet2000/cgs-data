@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>cgsdata package &mdash; cgsdata 0.0.2 documentation</title>
+    <title>cgsdata package &mdash; cgsdata 0.0.4 documentation</title>
     
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '0.0.2',
+        VERSION:     '0.0.4',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="cgsdata 0.0.2 documentation" href="index.html" />
+    <link rel="top" title="cgsdata 0.0.4 documentation" href="index.html" />
     <link rel="prev" title="Welcome to cgsdata’s documentation!" href="index.html" /> 
   </head>
   <body>
@@ -39,7 +39,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to cgsdata’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">cgsdata 0.0.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">cgsdata 0.0.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -53,73 +53,111 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-cgsdata.CGStable">
-<span id="cgsdata-cgstable-module"></span><h2>cgsdata.CGStable module<a class="headerlink" href="#module-cgsdata.CGStable" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-cgsdata.CGSdatastructure">
+<span id="cgsdata-cgsdatastructure-module"></span><h2>cgsdata.CGSdatastructure module<a class="headerlink" href="#module-cgsdata.CGSdatastructure" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="cgsdata.CGStable.AvroSchema">
-<em class="property">class </em><tt class="descclassname">cgsdata.CGStable.</tt><tt class="descname">AvroSchema</tt><big>(</big><em>name</em>, <em>machine_ip</em>, <em>database='default'</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGStable.html#AvroSchema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGStable.AvroSchema" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cgsdata.CGStable.CGStable" title="cgsdata.CGStable.CGStable"><tt class="xref py py-class docutils literal"><span class="pre">cgsdata.CGStable.CGStable</span></tt></a></p>
+<dt id="cgsdata.CGSdatastructure.AvroSubstructure">
+<em class="property">class </em><tt class="descclassname">cgsdata.CGSdatastructure.</tt><tt class="descname">AvroSubstructure</tt><big>(</big><em>name</em>, <em>host</em>, <em>database='default'</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#AvroSubstructure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.AvroSubstructure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cgsdata.CGSdatastructure.CGSdatasubstructure" title="cgsdata.CGSdatastructure.CGSdatasubstructure"><tt class="xref py py-class docutils literal"><span class="pre">cgsdata.CGSdatastructure.CGSdatasubstructure</span></tt></a></p>
 <p>An AVRO schema</p>
 <dl class="method">
-<dt id="cgsdata.CGStable.AvroSchema.createSchema">
-<tt class="descname">createSchema</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGStable.html#AvroSchema.createSchema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGStable.AvroSchema.createSchema" title="Permalink to this definition">¶</a></dt>
+<dt id="cgsdata.CGSdatastructure.AvroSubstructure.createSchema">
+<tt class="descname">createSchema</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#AvroSubstructure.createSchema"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.AvroSubstructure.createSchema" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an AVRO schema</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="cgsdata.CGStable.CGStable">
-<em class="property">class </em><tt class="descclassname">cgsdata.CGStable.</tt><tt class="descname">CGStable</tt><big>(</big><em>name</em>, <em>machine_ip</em>, <em>database='default'</em>, <em>table_type='undefined'</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGStable.html#CGStable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGStable.CGStable" title="Permalink to this definition">¶</a></dt>
+<dt id="cgsdata.CGSdatastructure.CGSdatastructure">
+<em class="property">class </em><tt class="descclassname">cgsdata.CGSdatastructure.</tt><tt class="descname">CGSdatastructure</tt><big>(</big><em>datastructure_path</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatastructure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatastructure" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
-<p>A CGS table (CGS=Centralized genomic system)</p>
+<p>A CGS data structure</p>
 <dl class="docutils">
 <dt>Attributes:</dt>
-<dd>name (string): name of the database (chosen by the user)
-machine_ip (string): machine ip (master node) to connect to for generating the database
-source (string): source of information from which we build the schema of the table (typically a csv file) 
-database (string): database name (by default: &#8220;default&#8221;)
-table_type (string): table type (ex: &#8220;metastore&#8221;, &#8220;mysql&#8221;, &#8220;hbase&#8221;)</dd>
+<dd>name (string): name of the data structure
+data_substructures (dictionary): dictionary of data substructures</dd>
 </dl>
 <dl class="method">
-<dt id="cgsdata.CGStable.CGStable.getDatabaseName">
-<tt class="descname">getDatabaseName</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGStable.html#CGStable.getDatabaseName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGStable.CGStable.getDatabaseName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cgsdata.CGStable.CGStable.getMachineIP">
-<tt class="descname">getMachineIP</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGStable.html#CGStable.getMachineIP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGStable.CGStable.getMachineIP" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cgsdata.CGStable.CGStable.getName">
-<tt class="descname">getName</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGStable.html#CGStable.getName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGStable.CGStable.getName" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cgsdata.CGStable.CGStable.readingTableSourceFile">
-<tt class="descname">readingTableSourceFile</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGStable.html#CGStable.readingTableSourceFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGStable.CGStable.readingTableSourceFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads a source file to rebuild the schema of the table corresponding to the selected type
-The file is a CSV file with in rows the variable/field names and in columns the table type (ex:hbase, mysql)
-The table_type should be the name of the chosen column.
-The CSV file may contain more than one column, only the table_type will be selected.</p>
+<dt id="cgsdata.CGSdatastructure.CGSdatastructure.create">
+<tt class="descname">create</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatastructure.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatastructure.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function creates the data structure
+Each of the data substructure is created.
+It returns the data substructures that could be created and add it to its list of created substructures.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cgsdata.CGStable.CGStable.show">
-<tt class="descname">show</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGStable.html#CGStable.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGStable.CGStable.show" title="Permalink to this definition">¶</a></dt>
+<dt id="cgsdata.CGSdatastructure.CGSdatastructure.show">
+<tt class="descname">show</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatastructure.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatastructure.show" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="cgsdata.CGStable.HBaseTable">
-<em class="property">class </em><tt class="descclassname">cgsdata.CGStable.</tt><tt class="descname">HBaseTable</tt><big>(</big><em>name</em>, <em>machine_ip</em>, <em>database='default'</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGStable.html#HBaseTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGStable.HBaseTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cgsdata.CGStable.CGStable" title="cgsdata.CGStable.CGStable"><tt class="xref py py-class docutils literal"><span class="pre">cgsdata.CGStable.CGStable</span></tt></a></p>
+<dt id="cgsdata.CGSdatastructure.CGSdatasubstructure">
+<em class="property">class </em><tt class="descclassname">cgsdata.CGSdatastructure.</tt><tt class="descname">CGSdatasubstructure</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatasubstructure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatasubstructure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A CGS data substructure (CGS=Centralized genomic system)
+A data substructure can be any database schema provided that it is contained on the same database. For instance, you cannot have a data substructure that has a MySQL table and a HBase table, all tables must be contained in the same database (here it would be either in MySQL or HBase, but not both).</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>name (string): name of the data substructure (chosen by the user)
+host (string): machine ip or url (master node) to connect to for generating the database
+source (string): source of information from which we build the schema of the table (typically a csv file) 
+database (string): database name (by default: &#8220;default&#8221;)
+datasubstructure_type (string): table type (ex: &#8220;metastore&#8221;, &#8220;mysql&#8221;, &#8220;hbase&#8221;)</dd>
+</dl>
+<dl class="method">
+<dt id="cgsdata.CGSdatastructure.CGSdatasubstructure.getDatabaseName">
+<tt class="descname">getDatabaseName</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatasubstructure.getDatabaseName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatasubstructure.getDatabaseName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cgsdata.CGSdatastructure.CGSdatasubstructure.getHostingMachine">
+<tt class="descname">getHostingMachine</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatasubstructure.getHostingMachine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatasubstructure.getHostingMachine" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cgsdata.CGSdatastructure.CGSdatasubstructure.getSourceFile">
+<tt class="descname">getSourceFile</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatasubstructure.getSourceFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatasubstructure.getSourceFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cgsdata.CGSdatastructure.CGSdatasubstructure.getSubstructureName">
+<tt class="descname">getSubstructureName</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatasubstructure.getSubstructureName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatasubstructure.getSubstructureName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cgsdata.CGSdatastructure.CGSdatasubstructure.getSubstructureType">
+<tt class="descname">getSubstructureType</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatasubstructure.getSubstructureType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatasubstructure.getSubstructureType" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="cgsdata.CGSdatastructure.CGSdatasubstructure.readingTableSourceFile">
+<tt class="descname">readingTableSourceFile</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatasubstructure.readingTableSourceFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatasubstructure.readingTableSourceFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a source file to rebuild the schema of the table corresponding to the selected type
+The file is a xlsx file with in rows the variable/field names and in columns the table type (ex:hbase, metastore)
+The xlsx file contains 2 sheets: one for NoSQL and another one for MySQL and there are named so (sheet1=NoSQL, sheet2=MySQL).
+The data/data.conf file makes the correspondences between the datasubstructure_type and the column names in the sheet
+The xlsx file may contain more than one column, only the ones corresponding to <em>datasubstructure_type</em> will be selected.   
+This function is very specific and may not be convenient for any use case</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cgsdata.CGSdatastructure.CGSdatasubstructure.show">
+<tt class="descname">show</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatasubstructure.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatasubstructure.show" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="cgsdata.CGSdatastructure.HBaseSubstructure">
+<em class="property">class </em><tt class="descclassname">cgsdata.CGSdatastructure.</tt><tt class="descname">HBaseSubstructure</tt><big>(</big><em>name</em>, <em>host</em>, <em>database='default'</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#HBaseSubstructure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.HBaseSubstructure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cgsdata.CGSdatastructure.CGSdatasubstructure" title="cgsdata.CGSdatastructure.CGSdatasubstructure"><tt class="xref py py-class docutils literal"><span class="pre">cgsdata.CGSdatastructure.CGSdatasubstructure</span></tt></a></p>
 <p>An HBase table in the Hadoop framework</p>
 <dl class="method">
-<dt id="cgsdata.CGStable.HBaseTable.createTable">
-<tt class="descname">createTable</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGStable.html#HBaseTable.createTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGStable.HBaseTable.createTable" title="Permalink to this definition">¶</a></dt>
+<dt id="cgsdata.CGSdatastructure.HBaseSubstructure.createTable">
+<tt class="descname">createTable</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#HBaseSubstructure.createTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.HBaseSubstructure.createTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an HBase table
 This table is created using an HBase script that can be run from a similar command as:
 $HBASE_HOME/bin/hbase shell createHBaseTable.sh &lt;hbase_table_name&gt;
@@ -129,19 +167,62 @@ HBase must be installed on the</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="cgsdata.CGStable.MetastoreTable">
-<em class="property">class </em><tt class="descclassname">cgsdata.CGStable.</tt><tt class="descname">MetastoreTable</tt><big>(</big><em>name</em>, <em>machine_ip</em>, <em>database='default'</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGStable.html#MetastoreTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGStable.MetastoreTable" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#cgsdata.CGStable.CGStable" title="cgsdata.CGStable.CGStable"><tt class="xref py py-class docutils literal"><span class="pre">cgsdata.CGStable.CGStable</span></tt></a></p>
+<dt id="cgsdata.CGSdatastructure.MetastoreSubstructure">
+<em class="property">class </em><tt class="descclassname">cgsdata.CGSdatastructure.</tt><tt class="descname">MetastoreSubstructure</tt><big>(</big><em>name</em>, <em>host</em>, <em>database='default'</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#MetastoreSubstructure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.MetastoreSubstructure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cgsdata.CGSdatastructure.CGSdatasubstructure" title="cgsdata.CGSdatastructure.CGSdatasubstructure"><tt class="xref py py-class docutils literal"><span class="pre">cgsdata.CGSdatastructure.CGSdatasubstructure</span></tt></a></p>
 <p>A metastore table in the Hadoop framework that can be further queried by Hive, Impala, Pig, etc</p>
 <p>Attributes:</p>
 <dl class="method">
-<dt id="cgsdata.CGStable.MetastoreTable.createTable">
-<tt class="descname">createTable</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGStable.html#MetastoreTable.createTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGStable.MetastoreTable.createTable" title="Permalink to this definition">¶</a></dt>
+<dt id="cgsdata.CGSdatastructure.MetastoreSubstructure.createTable">
+<tt class="descname">createTable</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#MetastoreSubstructure.createTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.MetastoreSubstructure.createTable" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a metastore table
-This table is built using the Hive programming language which should be available on the &#8220;machine_ip&#8221; (permissions should be given).
+This table is built using the Hive programming language which should be available on the &#8220;host&#8221; (permissions should be given).
 SSH access should be allowed to built this table</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="cgsdata.CGSdatastructure.MySQLSubstructure">
+<em class="property">class </em><tt class="descclassname">cgsdata.CGSdatastructure.</tt><tt class="descname">MySQLSubstructure</tt><big>(</big><em>**kwargs</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#MySQLSubstructure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.MySQLSubstructure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#cgsdata.CGSdatastructure.CGSdatasubstructure" title="cgsdata.CGSdatastructure.CGSdatasubstructure"><tt class="xref py py-class docutils literal"><span class="pre">cgsdata.CGSdatastructure.CGSdatasubstructure</span></tt></a></p>
+<p>A MySQL substructure</p>
+<p>The source file could be a sql dump or a yaml file</p>
+<p>Attributes:</p>
+<dl class="method">
+<dt id="cgsdata.CGSdatastructure.MySQLSubstructure.create">
+<tt class="descname">create</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#MySQLSubstructure.create"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.MySQLSubstructure.create" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a MySQL substructure, that is a schema</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cgsdata.CGSdatastructure.MySQLSubstructure.create_datastructure_from_SQL">
+<tt class="descname">create_datastructure_from_SQL</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#MySQLSubstructure.create_datastructure_from_SQL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.MySQLSubstructure.create_datastructure_from_SQL" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the data substructure based on a SQL dump</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="cgsdata.CGSdatastructure.ReadingDataFileException">
+<em class="property">exception </em><tt class="descclassname">cgsdata.CGSdatastructure.</tt><tt class="descname">ReadingDataFileException</tt><big>(</big><em>msg</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#ReadingDataFileException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.ReadingDataFileException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="cgsdata.CGSdatastructure.createDataStructureException">
+<em class="property">exception </em><tt class="descclassname">cgsdata.CGSdatastructure.</tt><tt class="descname">createDataStructureException</tt><big>(</big><em>msg</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#createDataStructureException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.createDataStructureException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="cgsdata.CGSdatastructure.main">
+<tt class="descclassname">cgsdata.CGSdatastructure.</tt><tt class="descname">main</tt><big>(</big><em>argv</em><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>The goal of this function is to build a new data structure.
+Credentials for each data substructure is created on the fly in the ~/.cgs/cgs_config_file
+This file should be protected: chmod 600 ~/.cgs/cgs_config_file</p>
+<p>Usage: python CGSdatastructure.py &lt;datastructure_path&gt;</p>
+<p>Ex:  python CGSdatastructure.py /my/datastructure/path/</p>
 </dd></dl>
 
 </div>
@@ -160,7 +241,7 @@ SSH access should be allowed to built this table</p>
   <ul>
 <li><a class="reference internal" href="#">cgsdata package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-cgsdata.CGStable">cgsdata.CGStable module</a></li>
+<li><a class="reference internal" href="#module-cgsdata.CGSdatastructure">cgsdata.CGSdatastructure module</a></li>
 <li><a class="reference internal" href="#module-cgsdata">Module contents</a></li>
 </ul>
 </li>
@@ -203,7 +284,7 @@ SSH access should be allowed to built this table</p>
         <li class="right" >
           <a href="index.html" title="Welcome to cgsdata’s documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">cgsdata 0.0.2 documentation</a> &raquo;</li> 
+        <li><a href="index.html">cgsdata 0.0.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

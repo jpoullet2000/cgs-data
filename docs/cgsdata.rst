@@ -4,10 +4,10 @@ cgsdata package
 Submodules
 ----------
 
-cgsdata.CGStable module
------------------------
+cgsdata.CGSdatastructure module
+-------------------------------
 
-.. automodule:: cgsdata.CGStable
+.. automodule:: cgsdata.CGSdatastructure
     :members:
     :undoc-members:
     :show-inheritance:
