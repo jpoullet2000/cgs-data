@@ -305,7 +305,12 @@ The conversion of the VCF files into AVRO files is done in 2 steps:
 - first, the VCF files are converted into a JSON format
 - second, the JSON files are converted into AVRO.
 
-The AVRO files are stored in HDFS, whereas the JSON files are deleted on the fly (by default). 
+The AVRO files are stored in HDFS, whereas the JSON files are deleted on the fly (by default).
+
+The AVRO format has the advantage of being extendable and changeable without breaking anything.
+If tomorrow, one decide to migrate from HBase to another NoSQL solution, it can start back from the AVRO files.
+Similarly, if fields names change or the field structure is re-thought, the AVRO format is a convenient solution.
+
 
 ### <a name="avro2hbase"> Bulk load of AVRO files into HBase </a>
 Under development.
