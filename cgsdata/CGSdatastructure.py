@@ -2,6 +2,7 @@ import os, sys
 import yaml
 import MySQLdb 
 import subprocess
+from starbase import Connection # rest API client to connect to HBASE
 
 VALID_DATABASES = ("metastore","mysql","hbase","avro")
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -213,6 +214,93 @@ class MySQLSubstructure(CGSdatasubstructure):
         
         return(status)
 
+
+class HBaseSubstructure(CGSdatasubstructure):
+    """ An HBase data substructure in the Hadoop framework (default database)
+       
+    """
+    def __init__(self, **kwargs):
+        super(HBaseSubstructure,self).__init__(**kwargs)
+        if self.port == 0:
+            self.port = 8000 # this value can be found in hbase-site.xml (typically in /etc/hbase/conf.dist/)
+    def drop_datastructure_from_yaml_file(self):
+        """ Drop the data substructure based on a YAML file
+        """
+        ## loading the YAML file
+        try:
+            with open(self.source) as f:
+                hbaseSchemaDic = yaml.load(f) 
+        except:
+            msg = "File %s could not be loaded. Please check the syntax of the '.yml' file." % self.source 
+            raise createDataStructureException(msg)
+            status = "failed"        
+                
+        try:
+            c = Connection(host = self.host, port = int(self.port))
+            for t in hbaseSchemaDic.keys():
+                tC = c.table(t)
+                tC.drop()
+                status = "succeeded"
+        except:
+            msg = "Error: the HBase substructure could not be dropped. Please check your connection parameters or the syntax in your '.yml' file."
+            raise createDataStructureException(msg)
+            status = "failed"
+        return(status)
+             
+    def create_datastructure_from_yaml_file(self):
+        """ Create the data substructure based on a YAML file
+        """
+        ## loading the YAML file
+        try:
+            with open(self.source) as f:
+                hbaseSchemaDic = yaml.load(f) 
+        except:
+            msg = "Error: the HBase substructure could not be created. File %s could not be loaded. Please check the syntax of the '.yml' file." % self.source 
+            raise createDataStructureException(msg)
+            status = "failed"        
+
+        try:
+            c = Connection(host = self.host, port = int(self.port))
+            tbls = c.tables()
+            tbls = [str(t) for t in tbls]
+            ## check that none of the tables already exists 
+            for t in hbaseSchemaDic.keys():
+                if t in tbls:
+                    msg  = "Error: the table %s already exists. If you use starbase in python you can drop the table by using \n>>> from starbase import Connection\n>>> c = Connection()\n>>> t = c.table(%s)\n>>> t.drop()" % (t,t) 
+                    print(msg)
+                    status = "failed"
+                    raise createDataStructureException(msg)
+
+            ## if none of the table(s) do(es) not exist, let's create them(it) 
+            for t in hbaseSchemaDic.keys():
+                columnFamilies = hbaseSchemaDic[t]['columnFamilies'].keys()
+                tC = c.table(t)
+                tC.create(*columnFamilies)
+            status = "succeeded"
+                                                    
+        except:
+            msg = "Error: the HBase substructure could not be created. Please check your connection parameters or the syntax in your '.yml' file."
+            raise createDataStructureException(msg)
+            status = "failed"
+
+        return(status)
+            
+    def create(self):
+        """ Create an HBase table
+            This table is created using an HBase script that can be run from a similar command as:
+            $HBASE_HOME/bin/hbase shell createHBaseTable.sh <hbase_table_name>
+            HBase must be installed on the 
+        """
+        datasubstructure_file = self.source
+        if datasubstructure_file.endswith('.yml'):
+            print('Generating the data substructure based on the YML file')
+            status = self.create_datastructure_from_yaml_file()
+        else:
+            status = 'failed'
+            raise ReadingDataFileException("Error: this file type is not yet supported")
+        
+        return(status)
+
 class MetastoreSubstructure(CGSdatasubstructure):
     """ A metastore table in the Hadoop framework that can be further queried by Hive, Impala, Pig, etc
 
@@ -234,34 +322,8 @@ class MetastoreSubstructure(CGSdatasubstructure):
         ## building the hive script
 
         ## creating the metastore table by executing the Hive script on the remote machine (SSH)
-
-class HBaseSubstructure(CGSdatasubstructure):
-    """ An HBase table in the Hadoop framework
-       
-    """
-    def __init__(self, name, host, database="default"):
-        super(MySQLSubstructure,self).__init__(**kwargs)
-
-    def create_datastructure_from_yaml_file(self):
-        """ Create the data substructure based on a YAML file
-        """
         
-                    
-    def create(self):
-        """ Create an HBase table
-            This table is created using an HBase script that can be run from a similar command as:
-            $HBASE_HOME/bin/hbase shell createHBaseTable.sh <hbase_table_name>
-            HBase must be installed on the 
-        """
-        
-            
-        # ## reading the yaml source file
-        # field_list = self.readingTableSourceFile()
-        # ## building the HBase schema
-        # [table_name,column_families_list] = buidingHBaseSchema(field_list)
-        # ## create the HBase table by executing the HBase script on the remote machine (SSH)
-        
-
+                             
 class AvroSubstructure(CGSdatasubstructure):
     """ An AVRO schema
     

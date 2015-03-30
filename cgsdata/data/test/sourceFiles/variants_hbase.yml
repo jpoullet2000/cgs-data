@@ -1,12 +1,17 @@
 variants:
-    - R:
-	- SI:
-          type: string
-          description: "sample id"
-      	- GS:
-          type: string
-          description: "gene symbol"
-    - I:
-	- SB:
-          type: float
-          description: "strand bias"
+    columnFamilies:
+      R:
+        description: "reference variables" 
+        columnQualifiers:
+            SI:
+                type: string
+                description: "sample_id"
+            GS:
+                type: string
+                description: "gene_symbol"
+      I:
+        description: "info fields in VCF file"
+        columnQualifiers: 
+            SB:
+                type: float
+                description: "strand bias"
