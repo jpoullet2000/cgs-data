@@ -133,17 +133,6 @@ datasubstructure_type (string): table type (ex: &#8220;metastore&#8221;, &#8220;
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="cgsdata.CGSdatastructure.CGSdatasubstructure.readingTableSourceFile">
-<tt class="descname">readingTableSourceFile</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatasubstructure.readingTableSourceFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatasubstructure.readingTableSourceFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads a source file to rebuild the schema of the table corresponding to the selected type
-The file is a xlsx file with in rows the variable/field names and in columns the table type (ex:hbase, metastore)
-The xlsx file contains 2 sheets: one for NoSQL and another one for MySQL and there are named so (sheet1=NoSQL, sheet2=MySQL).
-The data/data.conf file makes the correspondences between the datasubstructure_type and the column names in the sheet
-The xlsx file may contain more than one column, only the ones corresponding to <em>datasubstructure_type</em> will be selected.   
-This function is very specific and may not be convenient for any use case</p>
-</dd></dl>
-
-<dl class="method">
 <dt id="cgsdata.CGSdatastructure.CGSdatasubstructure.show">
 <tt class="descname">show</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#CGSdatasubstructure.show"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.CGSdatasubstructure.show" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -196,9 +185,9 @@ SSH access should be allowed to built this table</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="cgsdata.CGSdatastructure.MySQLSubstructure.create_datastructure_from_SQL">
-<tt class="descname">create_datastructure_from_SQL</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#MySQLSubstructure.create_datastructure_from_SQL"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.MySQLSubstructure.create_datastructure_from_SQL" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create the data substructure based on a SQL dump</p>
+<dt id="cgsdata.CGSdatastructure.MySQLSubstructure.create_datastructure_from_sql_file">
+<tt class="descname">create_datastructure_from_sql_file</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/cgsdata/CGSdatastructure.html#MySQLSubstructure.create_datastructure_from_sql_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgsdata.CGSdatastructure.MySQLSubstructure.create_datastructure_from_sql_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create the data substructure based on a SQL dump file</p>
 </dd></dl>
 
 </dd></dl>

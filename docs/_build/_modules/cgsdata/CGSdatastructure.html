@@ -47,13 +47,14 @@
           <div class="body">
             
   <h1>Source code for cgsdata.CGSdatastructure</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 <span class="kn">import</span> <span class="nn">MySQLdb</span> 
 <span class="kn">import</span> <span class="nn">subprocess</span>
 
-<span class="n">validDatabases</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;metastore&quot;</span><span class="p">,</span><span class="s">&quot;mysql&quot;</span><span class="p">,</span><span class="s">&quot;hbase&quot;</span><span class="p">,</span><span class="s">&quot;avro&quot;</span><span class="p">)</span>
+<span class="n">VALID_DATABASES</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;metastore&quot;</span><span class="p">,</span><span class="s">&quot;mysql&quot;</span><span class="p">,</span><span class="s">&quot;hbase&quot;</span><span class="p">,</span><span class="s">&quot;avro&quot;</span><span class="p">)</span>
 <span class="n">BASE_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
+<span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">,</span><span class="s">&quot;data&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="createDataStructureException"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.createDataStructureException">[docs]</a><span class="k">class</span> <span class="nc">createDataStructureException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
@@ -81,7 +82,7 @@
         <span class="n">config_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">datastructure_path</span><span class="p">,</span><span class="s">&quot;config.yml&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">dic</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> 
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s">&#39;dataStructureName&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">structureName</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s">&#39;dataStructureName&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">substructures</span> <span class="o">=</span> <span class="n">dic</span><span class="p">[</span><span class="s">&#39;substructures&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">created_substructures</span> <span class="o">=</span> <span class="p">[]</span>
         
@@ -91,7 +92,7 @@
             <span class="n">substructure_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">])</span>
         <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
 <span class="s">        Data structure name: </span><span class="si">%s</span><span class="s"></span>
-<span class="s">        Substructures: </span><span class="si">%s</span><span class="s">&quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">substructure_names</span><span class="p">)))</span>
+<span class="s">        Substructures: </span><span class="si">%s</span><span class="s">&quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">structureName</span><span class="p">,</span> <span class="s">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">substructure_names</span><span class="p">)))</span>
 </div>
 <div class="viewcode-block" id="CGSdatastructure.create"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.CGSdatastructure.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; This function creates the data structure</span>
@@ -99,6 +100,7 @@
 <span class="sd">        It returns the data substructures that could be created and add it to its list of created substructures.  </span>
 <span class="sd">        </span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">statusList</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c">## generating the different substructures</span>
         <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">substructures</span><span class="p">:</span>
             <span class="c">## create the data substructure object</span>
@@ -115,7 +117,9 @@
             <span class="k">print</span><span class="p">(</span><span class="s">&quot;--------------------------&quot;</span><span class="p">)</span>
             <span class="n">datasubstructure</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
             <span class="c">## generate the substructure </span>
-            <span class="n">datasubstructure</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+            <span class="n">statusList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datasubstructure</span><span class="o">.</span><span class="n">create</span><span class="p">())</span>
+
+        <span class="k">return</span><span class="p">(</span><span class="n">statusList</span><span class="p">)</span>
 
                 </div></div>
 <div class="viewcode-block" id="CGSdatasubstructure"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.CGSdatasubstructure">[docs]</a><span class="k">class</span> <span class="nc">CGSdatasubstructure</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -130,14 +134,27 @@
 <span class="sd">        datasubstructure_type (string): table type (ex: &quot;metastore&quot;, &quot;mysql&quot;, &quot;hbase&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="s">&quot;default&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
+        <span class="n">mandatory_variables</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;structureName&#39;</span><span class="p">,</span><span class="s">&#39;database&#39;</span><span class="p">,</span><span class="s">&#39;name&#39;</span><span class="p">,</span><span class="s">&#39;host&#39;</span><span class="p">,</span><span class="s">&#39;source&#39;</span><span class="p">,</span><span class="s">&#39;type&#39;</span><span class="p">,</span><span class="s">&#39;user&#39;</span><span class="p">,</span><span class="s">&#39;password&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">set</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span><span class="o">.</span><span class="n">issuperset</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">mandatory_variables</span><span class="p">)):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Error. The following variables are mandatory: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="s">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">mandatory_variables</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">createDataStructureException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="c">#sys.exit(1)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">structureName</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;structureName&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">substructureName</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;host&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">(</span><span class="s">&#39;port&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;source&#39;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;type&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;port&#39;</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;source&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">s</span> <span class="ow">in</span> <span class="n">source</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">,</span><span class="s">&#39;</span><span class="se">\\</span><span class="s">&#39;</span><span class="p">)):</span> <span class="c"># check if source is a full path or just a file name (in the latter case, the source file must be in &lt;BASE_DIR&gt;/data/&lt;data_structure_name&gt;/sourceFiles/)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">structureName</span><span class="p">,</span><span class="s">&quot;sourceFiles&quot;</span><span class="p">,</span><span class="n">source</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">substructure_type</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;type&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;database&#39;</span><span class="p">,</span><span class="s">&#39;default&#39;</span><span class="p">)</span>
-                
+        <span class="bp">self</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;user&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">password</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;password&#39;</span><span class="p">)</span>
+        
+                        
 <div class="viewcode-block" id="CGSdatasubstructure.getSubstructureName"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.CGSdatasubstructure.getSubstructureName">[docs]</a>    <span class="k">def</span> <span class="nf">getSubstructureName</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
 </div>
@@ -151,74 +168,20 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span>
 </div>
 <div class="viewcode-block" id="CGSdatasubstructure.getSubstructureType"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.CGSdatasubstructure.getSubstructureType">[docs]</a>    <span class="k">def</span> <span class="nf">getSubstructureType</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasubstructure_type</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">substructure_type</span>
     </div>
 <div class="viewcode-block" id="CGSdatasubstructure.show"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.CGSdatasubstructure.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
 <span class="s">        Data substructure name: </span><span class="si">%s</span><span class="s"></span>
 <span class="s">        Host: </span><span class="si">%s</span><span class="s"></span>
+<span class="s">        Port: </span><span class="si">%s</span><span class="s"></span>
 <span class="s">        Database: </span><span class="si">%s</span><span class="s"></span>
+<span class="s">        User: </span><span class="si">%s</span><span class="s"></span>
 <span class="s">        Data substructure type: </span><span class="si">%s</span><span class="s"></span>
-<span class="s">        Schema source: </span><span class="si">%s</span><span class="s">&quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasubstructure_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">))</span>
-         
-        </div>
-<div class="viewcode-block" id="CGSdatasubstructure.readingTableSourceFile"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.CGSdatasubstructure.readingTableSourceFile">[docs]</a>    <span class="k">def</span> <span class="nf">readingTableSourceFile</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Reads a source file to rebuild the schema of the table corresponding to the selected type</span>
-<span class="sd">        The file is a xlsx file with in rows the variable/field names and in columns the table type (ex:hbase, metastore)</span>
-<span class="sd">        The xlsx file contains 2 sheets: one for NoSQL and another one for MySQL and there are named so (sheet1=NoSQL, sheet2=MySQL).</span>
-<span class="sd">        The data/data.conf file makes the correspondences between the datasubstructure_type and the column names in the sheet</span>
-<span class="sd">        The xlsx file may contain more than one column, only the ones corresponding to *datasubstructure_type* will be selected.   </span>
-<span class="sd">        This function is very specific and may not be convenient for any use case</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">tableTypes2columnNames</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-            <span class="sd">&quot;&quot;&quot; Make the correspondences between the column names and the table type</span>
-<span class="sd">                It returns a dictionary: key = datasubstructure_type, value = column name</span>
-
-<span class="sd">                :param f: filename (data/data.conf file)</span>
-<span class="sd">                :type f: string</span>
-<span class="sd">                :returns type_colnames: dictionary with key = datasubstructure_type, value = column name  </span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">type_colnames</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-            <span class="n">h</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-            <span class="k">while</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">line</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span><span class="p">:</span>
-                    <span class="k">break</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;#&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;[&#39;</span><span class="p">))</span> <span class="p">:</span> <span class="c">## do not read comment or category table (NoSQL, MySQL)</span>
-                    <span class="n">ls</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;=&#39;</span><span class="p">)</span>
-                    <span class="n">type_colnames</span><span class="p">[</span><span class="n">ls</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">=</span><span class="n">ls</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="n">h</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="k">return</span><span class="p">(</span><span class="n">type_colnames</span><span class="p">)</span>
-            
-        <span class="c">## check that datasubstructure_type is not undefined</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasubstructure_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">validDatabases</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">ReadingDataFileException</span><span class="p">(</span><span class="s">&quot;You must be defined a table type: &quot;</span> <span class="o">+</span> <span class="s">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">validDatabases</span><span class="p">))</span>
-
-        <span class="c">## check that the data.conf file exists</span>
-        <span class="n">dataconf_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="s">&quot;data&quot;</span><span class="p">,</span><span class="s">&quot;data.conf&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">dataconf_file</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">ReadingDataFileException</span><span class="p">(</span><span class="s">&quot;The data configuration file &#39;data.conf&#39; does not exist. It should be added in your $CGSHOME/cgsdata/data/ directory&quot;</span><span class="p">)</span>
-
-        <span class="c">## create a source file if none is given </span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="p">,</span><span class="s">&quot;data&quot;</span><span class="p">,</span><span class="s">&quot;dataTable.xlsx&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">BASE_DIR</span><span class="p">)</span>
-
-        <span class="c">## check that the dataTable.xlsx file exists</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">ReadingDataFileException</span><span class="p">(</span><span class="s">&quot;The data file containing the description of the tables does not exist. It should be added in your $CGSHOME/cgsdata/data/ directory or explicitly given when constructing the CGStable object&quot;</span><span class="p">)</span>
-
-        <span class="c">## reading the correspondence file data/data.conf: datasubstructure_type -- column_name</span>
-        <span class="n">type_colnames</span> <span class="o">=</span> <span class="n">tableTypes2columnNames</span><span class="p">(</span><span class="n">dataconf_file</span><span class="p">)</span>
-                        
-        <span class="c">## read the column names (header)</span>
-
-        <span class="c">## check whether datasubstructure_type is contained in the column names, otherwise return an error</span>
-    
-        <span class="c">## send the list of values for the selected column and return it  </span>
-
-        </div>
+<span class="s">        Schema source: </span><span class="si">%s</span><span class="s">&quot;&quot;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">substructureName</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">substructure_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">))</span>
+    </div>
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s">&quot;Data substructure name: </span><span class="si">%s</span><span class="se">\n</span><span class="s">Host: </span><span class="si">%s</span><span class="se">\n</span><span class="s">Database: </span><span class="si">%s</span><span class="se">\n</span><span class="s">Data substructure type: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">datasubstructure_type</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s">&quot;Data substructure name: </span><span class="si">%s</span><span class="se">\n</span><span class="s">Host: </span><span class="si">%s</span><span class="se">\n</span><span class="s">Database: </span><span class="si">%s</span><span class="se">\n</span><span class="s">Data substructure type: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">substructure_type</span><span class="p">)</span>
 
     </div>
 <div class="viewcode-block" id="MySQLSubstructure"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.MySQLSubstructure">[docs]</a><span class="k">class</span> <span class="nc">MySQLSubstructure</span><span class="p">(</span><span class="n">CGSdatasubstructure</span><span class="p">):</span>
@@ -231,54 +194,47 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c">##CGSdatasubstructure.__init__(**kwargs)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MySQLSubstructure</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">3306</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">MySQLSubstructure</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<div class="viewcode-block" id="MySQLSubstructure.create_datastructure_from_SQL"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.MySQLSubstructure.create_datastructure_from_SQL">[docs]</a>    <span class="k">def</span> <span class="nf">create_datastructure_from_SQL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Create the data substructure based on a SQL dump</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c">## create db </span>
-            <span class="n">con</span> <span class="o">=</span> <span class="n">MySQLdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">passwd</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">)</span>
-            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-            <span class="c"># sql = &#39;CREATE DATABASE IF NOT EXISTS %s&#39; % (self.database) </span>
-            <span class="c"># con.query(&quot;SELECT VERSION()&quot;)</span>
-            <span class="c"># result = con.use_result()</span>
-
-            <span class="c"># print &quot;MySQL version: %s&quot; % \</span>
-            <span class="c"># result.fetch_row()[0]</span>
-            <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">&quot;mysql&quot;</span><span class="p">,</span> <span class="s">&quot;--user=</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="s">&quot;--password=</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">],</span><span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
-            <span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="nb">file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>                
-
-        <span class="k">except</span> <span class="n">MySQLdb</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
-            <span class="k">print</span> <span class="s">&quot;Error </span><span class="si">%d</span><span class="s">: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-
-        <span class="k">finally</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">con</span><span class="p">:</span>
-                <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-
         
-        </div>
+<div class="viewcode-block" id="MySQLSubstructure.create_datastructure_from_sql_file"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.MySQLSubstructure.create_datastructure_from_sql_file">[docs]</a>    <span class="k">def</span> <span class="nf">create_datastructure_from_sql_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Create the data substructure based on a SQL dump file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c">## create db</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&quot;mysql&quot;</span><span class="p">,</span> <span class="s">&quot;--user=</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="s">&quot;--port=</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="s">&quot;--password=</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">,</span> <span class="s">&quot;--host=</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">]))</span>
+            <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s">&quot;mysql&quot;</span><span class="p">,</span> <span class="s">&quot;--user=</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="s">&quot;--port=</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="s">&quot;--password=</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="p">,</span> <span class="s">&quot;--host=</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">host</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">database</span><span class="p">,</span> <span class="s">&#39;1&gt;&amp;2&#39;</span><span class="p">],</span><span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">stdin</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+            <span class="n">out</span><span class="p">,</span> <span class="n">err</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="nb">file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+            <span class="c">#print(repr(out))</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="s">&#39;succeeded&#39;</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Error: the data structure &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">structureName</span> <span class="o">+</span> <span class="s">&quot; was not created. Make sure you have the permissions to the DB and that your data structure configuration files are correctly shaped. See cgs-data repository for more details.&quot;</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="s">&#39;failed&#39;</span>
+            <span class="k">raise</span> <span class="n">createDataStructureException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">return</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+            </div>
 <div class="viewcode-block" id="MySQLSubstructure.create"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.MySQLSubstructure.create">[docs]</a>    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Create a MySQL substructure, that is a schema</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c">##</span>
-        
-
         <span class="n">datasubstructure_file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span>
         <span class="k">if</span> <span class="n">datasubstructure_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;.sql&#39;</span><span class="p">):</span>
             <span class="k">print</span><span class="p">(</span><span class="s">&#39;Generating the data substructure based on the SQL file&#39;</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_datastructure_from_sql_file</span><span class="p">()</span>
             
         <span class="k">elif</span> <span class="n">datasubstructure_file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s">&#39;.yml&#39;</span><span class="p">):</span>
             <span class="k">print</span><span class="p">(</span><span class="s">&#39;Generating the data substructure based on the YAML file&#39;</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="s">&#39;failed&#39;</span>
             <span class="k">raise</span> <span class="n">ReadingDataFileException</span><span class="p">(</span><span class="s">&quot;Error: this file type is not yet supported&quot;</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="s">&#39;failed&#39;</span>
             <span class="k">raise</span> <span class="n">ReadingDataFileException</span><span class="p">(</span><span class="s">&quot;Error: this file type is not yet supported&quot;</span><span class="p">)</span>
         
-
+        <span class="k">return</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
 </div></div>
 <div class="viewcode-block" id="MetastoreSubstructure"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.MetastoreSubstructure">[docs]</a><span class="k">class</span> <span class="nc">MetastoreSubstructure</span><span class="p">(</span><span class="n">CGSdatasubstructure</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; A metastore table in the Hadoop framework that can be further queried by Hive, Impala, Pig, etc</span>
@@ -287,7 +243,7 @@
 <span class="sd">       </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s">&quot;default&quot;</span><span class="p">):</span>
-        <span class="n">CGSdatasubstructure</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">datasubstructure_type</span><span class="o">=</span><span class="s">&quot;metastore&quot;</span><span class="p">)</span>
+        <span class="n">CGSdatasubstructure</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">substructure_type</span><span class="o">=</span><span class="s">&quot;metastore&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="MetastoreSubstructure.createTable"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.MetastoreSubstructure.createTable">[docs]</a>    <span class="k">def</span> <span class="nf">createTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Create a metastore table</span>
@@ -307,7 +263,7 @@
 <span class="sd">       </span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s">&quot;default&quot;</span><span class="p">):</span>
-        <span class="n">CGStable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">datasubstructure_type</span><span class="o">=</span><span class="s">&quot;hbase&quot;</span><span class="p">)</span>
+        <span class="n">CGStable</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">substructure_type</span><span class="o">=</span><span class="s">&quot;hbase&quot;</span><span class="p">)</span>
         
 <div class="viewcode-block" id="HBaseSubstructure.createTable"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.HBaseSubstructure.createTable">[docs]</a>    <span class="k">def</span> <span class="nf">createTable</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Create an HBase table</span>
@@ -334,7 +290,7 @@
 <span class="sd">    </span>
 <span class="sd">    &quot;&quot;&quot;</span> 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="o">=</span><span class="s">&quot;default&quot;</span><span class="p">):</span>
-        <span class="n">CGSdatasubstructure</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">datasubstructure_type</span><span class="o">=</span><span class="s">&quot;avro&quot;</span><span class="p">)</span>
+        <span class="n">CGSdatasubstructure</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">database</span><span class="p">,</span> <span class="n">substructure_type</span><span class="o">=</span><span class="s">&quot;avro&quot;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="AvroSubstructure.createSchema"><a class="viewcode-back" href="../../cgsdata.html#cgsdata.CGSdatastructure.AvroSubstructure.createSchema">[docs]</a>    <span class="k">def</span> <span class="nf">createSchema</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot; Create an AVRO schema</span>

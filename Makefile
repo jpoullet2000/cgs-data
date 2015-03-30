@@ -10,3 +10,6 @@ build:
 docs:
 	sphinx-build -aE docs docs/_build > /dev/null	
 	#sphinx-apidoc -F -o docs cgsdata > /dev/null
+
+tests: 
+	nose2

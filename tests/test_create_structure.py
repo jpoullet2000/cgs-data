@@ -9,6 +9,18 @@ class TestCreateSubstructure(unittest.TestCase):
     
     """
 
+    # def test_create_mysql_substructure(self):
+    #     """ Test the creation of the MySQL substructure
+
+    #     """
+    #     structure = CGSdatastructure(os.path.join(BASE_DIR,"../cgsdata/data/test"))
+    #     structure.show()
+    #     s = structure.substructures[0] # selecting the MySQL data substructure
+    #     datasubstructure = MySQLSubstructure(structureName = structure.structureName,**s)
+    #     datasubstructure.show()
+    #     status = datasubstructure.create()
+    #     self.assertTrue(status == 'succeeded')
+
     ## test the creation of HBase substructure
 
     ## test the creation of AVRO substructure (schema)

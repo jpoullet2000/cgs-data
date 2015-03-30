@@ -45,7 +45,7 @@ setup(
     long_description=read_md('README.md'),
     packages=['cgsdata'],
     package_dir={'cgsdata': 'cgsdata'},
-    package_data={'cgsdata': ['data/*.csv']},
+    package_data={'cgsdata': ['data/*.yml']},
     include_package_data=True,
     #tests_require=['pytest'],
     #test_suite='tests',

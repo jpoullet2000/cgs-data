@@ -152,19 +152,45 @@ class MySQLSubstructure(CGSdatasubstructure):
     def create_datastructure_from_sql_file(self):
         """ Create the data substructure based on a SQL dump file
         """
-        
-        try:
-            ## create db
-            print(" ".join(["mysql", "--user=%s" % self.user, "--port=%s" % self.port, "--password=%s" % self.password, "--host=%s" % self.host, self.database]))
-            proc = subprocess.Popen(["mysql", "--user=%s" % self.user, "--port=%s" % self.port, "--password=%s" % self.password, "--host=%s" % self.host, self.database, '1>&2'],shell=True,stdin=subprocess.PIPE,stdout=subprocess.PIPE)
-            out, err = proc.communicate(file(self.source).read())
-            #print(repr(out))
-            status = 'succeeded'
-        except:
-            msg = "Error: the data structure " + self.structureName + " was not created. Make sure you have the permissions to the DB and that your data structure configuration files are correctly shaped. See cgs-data repository for more details."
-            status = 'failed'
-            raise createDataStructureException(msg)
 
+        ## check whether the connection is OK and create db if OK
+        try:
+            db = MySQLdb.connect(host=self.host, user=self.user,passwd=self.password,port=self.port)
+            cursor = db.cursor()        
+            cursor.execute("SELECT VERSION()")
+            results = cursor.fetchone()
+            if results:
+                ## note that databases are often created within the sql file
+                sql = "CREATE DATABASE IF NOT EXISTS %s" % self.database;
+                cursor.execute(sql)
+                cdb = cursor.fetchone()
+                cursor.execute('use ' + self.database) 
+                cursor.execute(file(self.source).read())
+                results = cursor.fetchone()
+                status = 'succeeded'
+            else:
+                msg = "ERROR IN CONNECTION"
+                raise createDataStructureException(msg)
+                status = 'failed'
+        except MySQLdb.Error, e:
+            msg = "ERROR %d IN CONNECTION: %s" % (e.args[0], e.args[1]) + "\nThe data structure " + self.structureName + " was not created. Make sure you have the permissions to the DB and that your data structure configuration files are correctly shaped. See cgs-data repository for more details."
+            raise createDataStructureException(msg)
+            status = 'failed'
+     
+        # try:
+        #     ## create db
+        #     cmdL = ["mysql", "--user=%s" % self.user, "--port=%s" % self.port, "--password=%s" % self.password, "--host=%s" % self.host, self.database, '1>&2']
+        #     print(" ".join(cmdL))
+        #     proc = subprocess.Popen(cmdL,shell=True,stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+        #     out, err = proc.communicate(file(self.source).read())
+        #     print(repr(out))
+            
+        #     status = 'succeeded'
+        # except:
+        #     msg = "Error: the data structure " + self.structureName + " was not created. Make sure you have the permissions to the DB and that your data structure configuration files are correctly shaped. See cgs-data repository for more details."
+        #     status = 'failed'
+        #     raise createDataStructureException(msg)
+        
         return(status)
             
     def create(self):
@@ -214,26 +240,26 @@ class HBaseSubstructure(CGSdatasubstructure):
        
     """
     def __init__(self, name, host, database="default"):
-        CGStable.__init__(self, name, host, database, substructure_type="hbase")
+        super(MySQLSubstructure,self).__init__(**kwargs)
+
+    def create_datastructure_from_yaml_file(self):
+        """ Create the data substructure based on a YAML file
+        """
         
-    def createTable(self):
+                    
+    def create(self):
         """ Create an HBase table
             This table is created using an HBase script that can be run from a similar command as:
             $HBASE_HOME/bin/hbase shell createHBaseTable.sh <hbase_table_name>
             HBase must be installed on the 
         """
-        def buildingHBaseSchema(field_list):
-            """
-            Building a HBase schema (table, column families) from a list of field values
-            The field values should follow the syntax: <column_family>.<column_qualifier>
-            """
+        
             
-            
-        ## reading the yaml source file
-        field_list = self.readingTableSourceFile()
-        ## building the HBase schema
-        [table_name,column_families_list] = buidingHBaseSchema(field_list)
-        ## create the HBase table by executing the HBase script on the remote machine (SSH)
+        # ## reading the yaml source file
+        # field_list = self.readingTableSourceFile()
+        # ## building the HBase schema
+        # [table_name,column_families_list] = buidingHBaseSchema(field_list)
+        # ## create the HBase table by executing the HBase script on the remote machine (SSH)
         
 
 class AvroSubstructure(CGSdatasubstructure):
