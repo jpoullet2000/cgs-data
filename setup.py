@@ -47,6 +47,8 @@ setup(
     package_dir={'cgsdata': 'cgsdata'},
     package_data={'cgsdata': ['data/*.yml']},
     include_package_data=True,
+    dependency_links = ['https://github.com/perenecabuto/json_schema_generator/tarball/master']
+    #install_require = ['']
     #tests_require=['pytest'],
     #test_suite='tests',
     tests_require=['nose2'],

@@ -19,3 +19,13 @@ substructures:
       port: 8070
       user: admin
       password: admin
+
+    - name: avro_schema
+      type: avro
+      description: avro schema
+      database: default
+      source: vcfdata_avro.json
+      host: 127.0.0.1
+      user: admin
+      password: admin
+

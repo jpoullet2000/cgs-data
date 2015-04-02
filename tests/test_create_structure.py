@@ -33,7 +33,6 @@ class TestCreateSubstructure(unittest.TestCase):
         datasubstructure.show()
         status = datasubstructure.drop_datastructure_from_yaml_file()
         self.assertTrue(status == 'succeeded')
-
          
     def test_create_hbase_subtructure(self):
         """ Test the creation of the HBase substructure
@@ -47,7 +46,19 @@ class TestCreateSubstructure(unittest.TestCase):
         status = datasubstructure.create()
         self.assertTrue(status == 'succeeded')
 
+        
     ## test the creation of AVRO substructure (schema)
+    def test_create_avro_subtructure(self):
+        """ Test the creation of the AVRO schema (.avsc) from a JSON file 
+
+        """
+        structure = CGSdatastructure(os.path.join(BASE_DIR,"../cgsdata/data/test"))
+        structure.show()
+        s = structure.substructures[2] # selecting the Avro data substructure
+        datasubstructure = AvroSubstructure(structureName = structure.structureName,**s)
+        datasubstructure.show()
+        status = datasubstructure.create()
+        self.assertTrue(status == 'succeeded')
 
     ## test the creation of the metastore substructure
     
