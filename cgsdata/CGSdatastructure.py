@@ -9,24 +9,13 @@ path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../cgsdatatools'
 if not path in sys.path:
     sys.path.insert(1, path)
 del path
-from cgsdatatools import flatten, is_number
-
+from cgsdatatools import *
+from .exception import *
 
 VALID_DATABASES = ("metastore","mysql","hbase","avro")
 BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 DATA_DIR = os.path.join(BASE_DIR,"data")
 
-class createDataStructureException(Exception):
-    def __init__(self, msg):
-        self.msg = msg
-    def __str__(self):
-        return self.msg
-
-class ReadingDataFileException(Exception):
-    def __init__(self, msg):
-        self.msg = msg
-    def __str__(self):
-        return self.msg
 
     
 class CGSdatastructure(object):
@@ -351,14 +340,17 @@ class AvroSubstructure(CGSdatasubstructure):
 "namespace": "com.vcf.avro",
 "doc": "schema for VCF file",
 "type": "record",
+"name": "variants",
 "fields": ["""
 
         body = []
         for i,k in enumerate(avroKeys):
             if is_number(avroValues[i]):
-                body.append('\n{"name": "%s", "type": "float"}' % k)
+                ## TODO: allow numerical value
+                #body.append('\n{"name": "%s", "type": ["float","null"]}' % k)
+                body.append('\n{"name": "%s", "type": ["string","null"]}' % k)
             else:
-                body.append('\n{"name": "%s", "type": "string"}' % k)
+                body.append('\n{"name": "%s", "type": ["string","null"]}' % k)
         avroBody = ",".join(body)
         avroTail = "\n]}"
         avroSchema = avroHeader + avroBody + avroTail
@@ -368,65 +360,6 @@ class AvroSubstructure(CGSdatasubstructure):
         o.write(avroSchema)
         o.close()
         status = "succeeded"
-        ## conversion from json to json schema
-        ## jsonschema_generator.py record file:///home/jbp/Downloads/vcf/3samples/vcf_s3.0Good.json /home/jbp/Downloads/vcf/3samples/vcf_s3.0Good.json_schema 
-        
-        ## conversion of the json schema in an AVRO compatible format
-        ## json to a json-avro (one line per item without variant ID and ,} replaced by }
-        # tmpfile = "tmp" + id_generator()
-#         o = open(tmpfile,'w')
-#         o.write("""{
-# "namespace": "com.vcf.avro",
-# "doc": "schema for VCF file",
-# "type": "record",
-# "fields": [\n""")
-#         cf = 0
-#         ca = 0
-#         lastlineEndString = ""
-#         with open(self.source) as f:
-#             for i in range(10): # skipping the header => variants
-#                 line = f.readline()
-#             while 1:
-#                 line = f.readline()
-#                 l = line.strip()
-#                 if l.startswith('"properties"'):
-#                     o.write('"fields": [{\n')
-#                     cf += 1
-#                 elif l.startswith('"required"'):
-#                     pass
-#                 elif l.startswith('"type": "object"'):
-#                     o.write('"type": "record"\n')
-#                 elif l.startswith('"type":'):
-#                     o.write(l)
-#                 elif l.startswith('"id"'):
-#                     o.write('"name": ' + l.split(": ")[1] + '\n')
-#                 elif l.endswith('{'):
-#                     o.write('{')
-#                     ca += 1                   
-#                 elif l.endswith("}"):
-#                     if lastlineEndString == "}":
-#                         cf -= 1
-#                         o.write("]\n")
-#                     else:
-#                         ca -= 1
-#                         o.write("}\n")
-#                 if cf == 0 and ca == 0:
-#                     break
-#         o.write("]\n}")
-#         o.close()            
-            
-        
-        ## conversion from json schema to AVRO schema (.avsc)
-        ## - $schema => namespace
-        ## - "type": "object" => "type": "record"
-        ## - "properties": { => "fields": [{
-        
-
-        ## test JSON to AVRO with new schema: java -jar ~/avro-tools-1.7.7.jar fromjson --schema-file variantData-20141009b.avsc variantData-20141009b.json > variantData-20141009b.avro
-        ## avro write --schema test0.avsc --input-type=json -o test.avro test0.json
-
-        ## cleaning tmp files
-        # os.remove(tmpfile)
 
         return status
         
