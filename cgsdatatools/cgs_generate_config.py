@@ -95,6 +95,7 @@ def make_substructures(field,HBase,Metastore):
         substructures[substructures_name["MySQL"]] = field["MySQL"]
     if field["Impala"] != "" and field["Impala"]!="/":
         substructures[substructures_name["Metastore"]] = field["Impala"]
+        substructures[substructures_name["API"]] = field["Impala"]
         make_Metastore(field,Metastore)
     
     return substructures
@@ -104,12 +105,12 @@ def cgs_make_mapping(vcf_in_db,dest_path):
     mapping = {}
     HBase = {}
     Metastore = {}
-    AVRO = {}
-    API = {}
     for field in fields:
         variable = field["Highlander field"]
         mapping[variable] = {"description":field["description"]}
         substructures = make_substructures(field,HBase,Metastore)
+    AVRO = Metastore
+    API = Metastore
     config_output = open(dest_path+"/config.yml","w")
     config_output.write(yaml.dump(mapping,default_flow_style=False))
     config_output.close()
@@ -119,6 +120,13 @@ def cgs_make_mapping(vcf_in_db,dest_path):
     metastore_output = open(dest_path+"/"+substructures_name["Metastore"]+".yml","w")
     metastore_output.write(yaml.dump(Metastore,default_flow_style=False))
     metastore_output.close()
+    avro_output = open(dest_path+"/"+substructures_name["API"]+".yml","w")
+    avro_output.write(yaml.dump(AVRO,default_flow_style=False))
+    avro_output.close()
+    api_output = open(dest_path+"/"+substructures_name["Metastore"]+".yml","w")
+    api_output.write(yaml.dump(API,default_flow_style=False))
+    api_output.close()
+
 
 
 def parse_CSV_MySQL(filename):
