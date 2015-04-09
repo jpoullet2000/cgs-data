@@ -108,7 +108,7 @@ def cgs_make_mapping(vcf_in_db,dest_path):
     for field in fields:
         variable = field["Highlander field"]
         mapping[variable] = {"description":field["description"]}
-        substructures = make_substructures(field,HBase,Metastore)
+        mapping[variable]["substructures"] = make_substructures(field,HBase,Metastore)
     AVRO = Metastore
     API = Metastore
     config_output = open(dest_path+"/config.yml","w")
