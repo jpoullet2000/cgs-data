@@ -4,16 +4,22 @@ path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../cgsdatatools'
 if not path in sys.path:
     sys.path.insert(1, path)
 del path
-from cgsdatatools import flatten, id_generator
+from cgsdatatools import flatten, id_generator, uniqueInList
 from .exception import *
 import avro.schema
 from avro.datafile import DataFileReader, DataFileWriter
 from avro.io import DatumReader, DatumWriter
 import shutil
+import vcf
 
 class formatConverters(object):
-    """ Format converters
-    
+    """
+    Format converters
+
+    Possible formats:
+        * input: vcf, vcf.gz (gzipped), json, jsonflat
+        * output: json, jsonflat, avro
+        * additional file: avsc (avro schema)  
     """
     def __init__(self,
                  input_file,
@@ -27,6 +33,8 @@ class formatConverters(object):
         if input_type == "":
             sp = input_file.split('.')
             self.input_type = sp[len(sp)-1]
+            if self.input_type == 'gz':
+                self.input_type = 'sp[len(sp)-2]' + 'sp[len(sp)-1]'
         else:
             self.input_type = input_type
             
@@ -44,6 +52,100 @@ class formatConverters(object):
         Output file: %s
         Converting method""" % (self.input_type, self.output_type, self.converting_method))
 
+    def convertVCF2FLATJSON(self):
+        """ Convert a VCF file to a FLAT JSON file
+        Note: this function is a temporary function that should be replaced in future versions.
+        
+        """
+        if self.input_type not in ['vcf','vcf.gz'] or self.output_type != 'json':
+            msg = "Error: vcf files (possibly gzipped) must be given as input files, and a json file should be given as output file."
+            status = "failed"
+            raise generalException(msg)
+
+        f = open(self.input_file)
+        o = open(self.output_file,'w')
+        vcf_reader = vcf.Reader(f)
+        #cc = 1
+        for record in vcf_reader:
+        #for i in [1]:
+            record = vcf_reader.next()
+            for s in record.samples:
+                if hasattr(s.data,'DP'):
+                    call_DP = s.data.DP
+                else:
+                    call_DP = "NA"
+                if len(uniqueInList(s.data.GT.split('|'))) > 1:
+                    call_het = "Heterozygous"
+                else:
+                    call_het = "Homozygous"
+                if isinstance(record.ALT, list):
+                    ALT = '|'.join([str(a) for a in record.ALT])
+                else:
+                    ALT = record.ALT
+                if isinstance(record.FILTER, list):
+                    FILTER = '|'.join([str(a) for a in record.FILTER])
+                else:
+                    FILTER = str(record.FILTER)
+                    
+                linedic = {
+                    "variants_info_num_genes" : "NA", 
+                    "variants_quality" : str(record.QUAL),
+                    "variants_info_allele_num": "NA",
+                    "variants_calls_info_zygosity": call_het,
+                    "variants_info_short_tandem_repeat": "NA",
+                    "readGroupSets_readGroups_experiment_sequencingCenter": "NA",
+                    "readGroupSets_readGroups_info_patient": s.sample,
+                    "variants_info_change_type": record.var_type,
+                    "variants_calls_info_read_depth": str(call_DP),
+                    "variants_info_other_effects": "NA",
+                    "variants_referenceBases": record.REF,
+                    "variants_info_is_scSNV_Ensembl": "NA",
+                    "readGroupSets_readGroups_experiment_libraryId": "NA",
+                    "variants_info_dbsnp_id_137": "NA",
+                    "variants_info_lof_tolerant_or_recessive_gene": "NA",
+                    "variants_info_is_scSNV_RefSeq": "NA",
+                    "variants_filters": FILTER,
+                    "readGroupSets_readGroups_sampleID": s.sample,
+                    "variants_start": str(record.POS),
+                    "variants_info_downsampled": "NA",
+                    "variants_referenceName": record.CHROM,
+                    "variants_alternateBases": ALT,
+                    "variants_calls_genotype" : s.data.GT
+                    }
+                o.write(json.dumps(linedic, ensure_ascii=False) + "\n")
+
+        o.close()
+        f.close()
+
+        status = "succeeded"
+        return(status)
+            # #sampleIdList =  
+            # varDic = {{"Callset": {"id" : , "sampleId" : , "variantSetIds" : [] }},
+            #           # {"ReadGroupSets" :
+            #           #  {"ReadGroups" : {"sampleId" : }, {"sampleId" : }}
+            #           # },
+            #           {"Variants" :
+            #            {"variantSetId" : "",
+            #             "referenceName" : "",
+            #             "start" : "",
+            #             "end" : "",
+            #             "referenceBases" :
+            #             "alternateBases" :
+            #             "quality" :
+            #             "filter" :
+            #             },
+            #             "calls" :
+            #             { "callSetId": ,
+            #               "genotype" : []
+            #               }
+            #         },
+            #         { "Variantsets" { "id" : }}
+                      
+                        
+            
+            # jsonline = json.dumps(varDic, ensure_ascii=False)
+            # cc += 1
+        
     def convertJSON2FLATJSON(self):
         """ Convert a JSON file (for the format, see the documentation) to a flat JSON file or more accurately a series of JSON lines  
         """

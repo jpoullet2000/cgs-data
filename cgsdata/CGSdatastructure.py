@@ -175,20 +175,6 @@ class MySQLSubstructure(CGSdatasubstructure):
             raise createDataStructureException(msg)
             status = 'failed'
      
-        # try:
-        #     ## create db
-        #     cmdL = ["mysql", "--user=%s" % self.user, "--port=%s" % self.port, "--password=%s" % self.password, "--host=%s" % self.host, self.database, '1>&2']
-        #     print(" ".join(cmdL))
-        #     proc = subprocess.Popen(cmdL,shell=True,stdin=subprocess.PIPE,stdout=subprocess.PIPE)
-        #     out, err = proc.communicate(file(self.source).read())
-        #     print(repr(out))
-            
-        #     status = 'succeeded'
-        # except:
-        #     msg = "Error: the data structure " + self.structureName + " was not created. Make sure you have the permissions to the DB and that your data structure configuration files are correctly shaped. See cgs-data repository for more details."
-        #     status = 'failed'
-        #     raise createDataStructureException(msg)
-        
         return(status)
             
     def create(self):
