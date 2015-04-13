@@ -1,0 +1,1106 @@
+1000G_AC:
+  description: Alternative allele counts in the whole 1000 genomes phase 1 data.
+  substructures:
+    variants_api: variants.info.1000G_AC
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.1000G_AC
+1000G_AF:
+  description: Alternative allele frequency in the whole 1000Gp1 data.
+  substructures:
+    variants_api: variants.info.1000G_AF
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.1000G_AF
+ARIC5606_AA_AC:
+  description: Alternative allele counts in 2403 exomes of African Americans from
+    the Atherosclerosis Risk in Communities Study (ARIC) cohort study.
+  substructures:
+    variants_api: variants.info.ARIC5606_AA_AC
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.ARIC5606_AA_AC
+ARIC5606_AA_AF:
+  description: Alternative allele frequency of 2403 exomes of African Americans from
+    the Atherosclerosis Risk in Communities Study (ARIC) cohort study.
+  substructures:
+    variants_api: variants.info.ARIC5606_AA_AF
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.ARIC5606_AA_AF
+ARIC5606_EA_AC:
+  description: Alternative allele counts in 3203 exomes of European Americans from
+    the Atherosclerosis Risk in Communities Study (ARIC) cohort study.
+  substructures:
+    variants_api: variants.info.ARIC5606_EA_AC
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.ARIC5606_EA_AC
+ARIC5606_EA_AF:
+  description: Alternative allele frequency of 3203 exomes of European Americans from
+    the Atherosclerosis Risk in Communities Study (ARIC) cohort study.
+  substructures:
+    variants_api: variants.info.ARIC5606_EA_AF
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.ARIC5606_EA_AF
+ESP6500_AA_AF:
+  description: Alternative allele frequency in the Afrian American samples of the
+    NHLBI GO Exome Sequencing Project (ESP6500 data set).
+  substructures:
+    variants_api: variants.info.ESP6500_AA_AF
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.ESP6500_AA_AF
+ESP6500_EA_AF:
+  description: Alternative allele frequency in the European American samples of the
+    NHLBI GO Exome Sequencing Project (ESP6500 data set).
+  substructures:
+    variants_api: variants.info.ESP6500_EA_AF
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.ESP6500_EA_AF
+aggregation_pred_lr:
+  description: Prediction of DBNSFP's MetaLR based ensemble prediction score (aggregation_score_lr),"T(olerated)"
+    or "D(amaging)". The score cutoff between "D" and "T" is 0.5.
+  substructures:
+    variants_api: variants.info.aggregation_pred_lr
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.aggregation_pred_lr
+aggregation_pred_radial_svm:
+  description: Prediction of DBNSFP's SVM based ensemble prediction score (aggregation_score_radial_svm),"T(olerated)"
+    or "D(amaging)". The score cutoff between "D" and "T" is 0.
+  substructures:
+    variants_api: variants.info.aggregation_pred_radial_svm
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.aggregation_pred_radial_svm
+aggregation_score_lr:
+  description: DBNSFP's logistic regression (LR) based ensemble prediction score,
+    which incorporated 10 scores (SIFT, PolyPhen-2 HDIV, PolyPhen-2 HVAR, GERP++,
+    MutationTaster, Mutation Assessor, FATHMM, LRT, SiPhy, PhyloP) and the maximum
+    frequency observed in the 1000 genomes populations. Larger value means the SNV
+    is more likely to be damaging. Scores range from 0 to 1.
+  substructures:
+    variants_api: variants.info.aggregation_score_lr
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.aggregation_score_lr
+aggregation_score_radial_svm:
+  description: DBNSFP's support vector machine (SVM) based ensemble prediction score,
+    which incorporated 10 scores (SIFT, PolyPhen-2 HDIV, PolyPhen-2 HVAR, GERP++,
+    MutationTaster, Mutation Assessor, FATHMM, LRT, SiPhy, PhyloP) and the maximum
+    frequency observed in the 1000 genomes populations. Larger value means the SNV
+    is more likely to be damaging. Scores range from -2 to 3 in dbNSFP.
+  substructures:
+    variants_api: variants.info.aggregation_score_radial_svm
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.aggregation_score_radial_svm
+allele_num:
+  description: 'Number of alleles found at this position : reference + number of alternative.
+    Note that even if reference is not present, it is counted, so can spot easily
+    tri-allelic cases when this value is equal to 3.'
+  substructures:
+    variants_api: variants.info.allele_num
+    variants_hbase: I.AN
+    variants_metastore: variants.info.allele_num
+allelic_depth_alt:
+  description: This and Coverage are complementary fields that are two important ways
+    of thinking about the depth of the data for this sample at this site. The Coverage
+    field describe the total depth of reads that passed the Unified Genotypers internal
+    quality control metrics (like MAPQ > 17, for example), whatever base was present
+    in the read at this site. The allelic depths values (one for each of reference
+    and alternative fields) is the count of all reads that carried with them the reference
+    and alternative alleles. The reason for this distinction is that the coverage
+    is in some sense reflective of the power I have to determine the genotype of the
+    sample at this site, while the allelic depths tells me how many times I saw each
+    of the reference and alternative alleles in the reads, free of any bias potentially
+    introduced by filtering the reads.
+  substructures:
+    variants_api: variants.calls.info.confidence_by_depth
+    variants_hbase: F.AD [1]
+    variants_metastore: variants.calls.info.confidence_by_depth
+allelic_depth_proportion_alt:
+  description: Allelic depth proportion in regard of total coverage for the alternative
+    allele.
+  substructures:
+    variants_api: variants.calls.info.allelic_depth_proportion_alt
+    variants_hbase: F.ADPA
+    variants_metastore: variants.calls.info.allelic_depth_proportion_alt
+allelic_depth_proportion_ref:
+  description: Allelic depth proportion in regard of total coverage for the reference
+    allele.
+  substructures:
+    variants_api: variants.calls.info.allelic_depth_proportion_ref
+    variants_hbase: F.ADPR
+    variants_metastore: variants.calls.info.allelic_depth_proportion_ref
+allelic_depth_ref:
+  description: This and Coverage are complementary fields that are two important ways
+    of thinking about the depth of the data for this sample at this site. The Coverage
+    field describe the total depth of reads that passed the Unified Genotypers internal
+    quality control metrics (like MAPQ > 17, for example), whatever base was present
+    in the read at this site. The allelic depths values (one for each of reference
+    and alternative fields) is the count of all reads that carried with them the reference
+    and alternative alleles. The reason for this distinction is that the coverage
+    is in some sense reflective of the power I have to determine the genotype of the
+    sample at this site, while the allelic depths tells me how many times I saw each
+    of the reference and alternative alleles in the reads, free of any bias potentially
+    introduced by filtering the reads.
+  substructures:
+    variants_api: variants.calls.info.confidence_by_depth
+    variants_hbase: F.AD [0]
+    variants_metastore: variants.calls.info.confidence_by_depth
+allelic_qv_alt:
+  description: Allelic average base qv for the alternative allele.
+  substructures: {}
+allelic_qv_ref:
+  description: Allelic average base qv for the reference allele.
+  substructures: {}
+allelic_unique_starts_alt:
+  description: Allelic unique start positions for the alternative allele.
+  substructures: {}
+allelic_unique_starts_ref:
+  description: Allelic unique start positions for the reference allele.
+  substructures: {}
+alternative:
+  description: The alternative base that vary in the samples, or in the population
+    in general. Note that alternative is always given on the forward strand. For indels
+    the alternative bases always include at least one base each (the base before the
+    event).
+  substructures:
+    variants_api: variants.alternateBases[]
+    variants_hbase: R.ALT
+    variants_metastore: variants.alternateBases[]
+biotype:
+  description: BioType, as reported by ENSEMBL.
+  substructures:
+    variants_api: readGroupSets.readGroups.info.biotype
+    variants_hbase: I.BIOT
+    variants_metastore: readGroupSets.readGroups.info.biotype
+cadd_phred:
+  description: 'CADD phred-like score (-10*log10(rank/total)) based on whole genomeCADD
+    raw scores. A scaled C-score of greater of equal 10 indicates that these are predicted
+    to be the 10% most deleterious substitutions that you can do to the human genome,
+    a score of greater or equal 20 indicates the 1% most deleterious and so on. If
+    you would like to apply a cutoff on deleteriousness, you should put it somewhere
+    between 10 and 20 (15). Please refer to Kircher et al. (2014) Nature Genetics
+    46(3):310-5 for details. The larger the score the more likely the SNP has damaging
+    effect. Please note the following copyright statement for CADD: CADD scores (http://cadd.gs.washington.edu/)
+    are Copyright 2013 University of Washington and Hudson-Alpha Institute for Biotechnology
+    (all rights reserved) but are freely available for all academic, non-commercial
+    applications. For commercial licensing information contact Jennifer McCullar (mccullaj@uw.edu).'
+  substructures:
+    variants_api: variants.info.cadd_phred
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.cadd_phred
+cadd_raw:
+  description: 'CADD raw score for funtional prediction of a SNP. Raw CADD scores
+    come straight from the model, and are interpretable as the extent to which the
+    annotation profile for a given variant suggests that that variant is likely to
+    be observed (negative values) vs simulated (positive values). These values have
+    no absolute unit of meaning and are incomparable across distinct annotation combinations,
+    training sets, or model parameters. However, raw values do have relative meaning,
+    with higher values indicating that a variant is more likely to be simulated (or
+    not observed) and therefore more likely to have deleterious effects. Please refer
+    to Kircher et al.(2014) Nature Genetics 46(3):310-5 for details. The larger the
+    score the more likelythe SNP has damaging effect. Please note the following copyright
+    statement for CADD: CADD scores (http://cadd.gs.washington.edu/) are Copyright
+    2013 University of Washington and Hudson-Alpha Institute for Biotechnology (all
+    rights reserved) but are freely available for all academic, non-commercial applications.
+    For commercial licensing information contact Jennifer McCullar (mccullaj@uw.edu).'
+  substructures:
+    variants_api: variants.info.cadd_raw
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.cadd_raw
+cdna_length:
+  description: !!python/str "trancript\u2019s cDNA length (one based)"
+  substructures:
+    variants_api: variants.info.cdna_length
+    variants_hbase: I.CDNAL
+    variants_metastore: variants.info.cdna_length
+cdna_pos:
+  description: Position in cDNA (one based)
+  substructures:
+    variants_api: variants.info.cdna_pos
+    variants_hbase: I.ANN []
+    variants_metastore: variants.info.cdna_pos
+cds_length:
+  description: Number of coding bases (one based includes START and STOP codons)
+  substructures:
+    variants_api: variants.info.cds_length
+    variants_hbase: I.ANN []
+    variants_metastore: variants.info.cds_length
+cds_pos:
+  description: Position of coding bases (one based includes START and STOP codons)
+  substructures:
+    variants_api: variants.info.cds_pos
+    variants_hbase: I.ANN []
+    variants_metastore: variants.info.cds_pos
+change_type:
+  description: 'Type of change : SNP, MNP, INS, DEL'
+  substructures:
+    variants_api: variants.info.change_type
+    variants_hbase: I.CT
+    variants_metastore: variants.info.change_type
+check_insilico:
+  description: 'This flag can be used if this variant has been evaluated insilico
+    (e.g. with IGV): set to true if it\''s likely a real change, or to false if it\''s
+    likely a sequencing error (e.g. alternative allele not specific to pathology).
+    Only users associated with the given sample can change this flag, but any user
+    can see the assigned value.'
+  substructures:
+    variants_api: variants.info.check_insilico
+    variants_hbase: I.CI
+    variants_metastore: variants.info.check_insilico
+check_insilico_username:
+  description: User who has set the check_insilico flag.
+  substructures:
+    variants_api: variants.info.check_insilico_username
+    variants_hbase: I.CIU
+    variants_metastore: variants.info.check_insilico_username
+check_segregation:
+  description: 'This field can be used if this variant has been evaluated for segregation:
+    SINGLE (No other sample in family), COSEG (Variant cosegregates), CARRIERS (Some
+    unaffected carrier(s)), NO_COSEG (Not in other affected(s)), NO_COSEG_OTHER (Does
+    not cosegregate in other families) or NOT_CHECKED (Not checked for segregation,
+    default value). Only users associated with the given sample can change this field,
+    but any user can see the assigned value.'
+  substructures:
+    variants_api: variants.info.check_segregation
+    variants_hbase: I.CS
+    variants_metastore: variants.info.check_segregation
+check_segregation_username:
+  description: User who has set the check_segregation field.
+  substructures:
+    variants_api: variants.info.check_segregation_username
+    variants_hbase: I.CSU
+    variants_metastore: variants.info.check_segregation_username
+check_somatic_change:
+  description: 'This flag can be used if this variant has been evaluated for mosaicism:
+    set to true if it\''s a confirmed somatic change, or to false if it\''s a germline
+    change. Only users associated with the given sample can change this flag, but
+    any user can see the assigned value.'
+  substructures:
+    variants_api: variants.info.check_somatic_change
+    variants_hbase: I.CSC
+    variants_metastore: variants.info.check_somatic_change
+check_somatic_change_username:
+  description: User who has set the check_somatic_change flag.
+  substructures:
+    variants_api: variants.info.check_somatic_change_username
+    variants_hbase: I.CSCU
+    variants_metastore: variants.info.check_somatic_change_username
+check_validated_change:
+  description: 'This flag can be used if this variant has been tested in the lab:
+    set to true if the change has been confirmed, and to false if not. Only users
+    associated with the given sample can change this flag, but any user can see the
+    assigned value.'
+  substructures:
+    variants_api: variants.info.check_validated_change
+    variants_hbase: I.CVC
+    variants_metastore: variants.info.check_validated_change
+check_validated_change_username:
+  description: User who has set the check_validated_change flag.
+  substructures:
+    variants_api: variants.info.check_validated_change_username
+    variants_hbase: I.CVCU
+    variants_metastore: variants.info.check_validated_change_username
+chr:
+  description: 'Chromosome : chromosome and position gives the contig on which the
+    variant occurI. For indels this is actually the base preceding the event.'
+  substructures:
+    variants_api: variants.referenceName
+    variants_hbase: R.C
+    variants_metastore: variants.referenceName
+clinvar_clnsig:
+  description: 'clinical significance as to the clinvar data set : 2 - Benign, 3 -
+    Likely benign, 4 - Likely pathogenic, 5 - Pathogenic, 6 - drug response, 7 - histocompatibility.
+    A negative score means the the score is for the ref allele'
+  substructures:
+    variants_api: variants.info.clinvar_clnsig
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.clinvar_clnsig
+clinvar_rs:
+  description: rs number from the clinvar data set
+  substructures:
+    variants_api: variants.info.clinvar_rs
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.clinvar_rs
+clinvar_trait:
+  description: the trait/disease the clinvar_clnsig referring to
+  substructures:
+    variants_api: variants.info.clinvar_trait
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.clinvar_trait
+confidence:
+  description: The Phred scaled probability of Probability that reference/alternative
+    polymorphism exists at this site given sequencing data. Because the Phred scale
+    is -10 * log(1-p), a value of 10 indicates a 1 in 10 chance of error, while a
+    100 indicates a 1 in 10^10 chance. The GATK values can grow very large when lots
+    of NGS data is used to call.
+  substructures:
+    variants_api: variants.quality
+    variants_hbase: R.QUAL
+    variants_metastore: variants.quality
+consensus_prediction:
+  description: 'Consensus between prediction of all available software. The base score
+    reflects the number software that predict the variant to be damaging: DAMAGING
+    in Sift, DELETERIOUS in LRT, HIGH or MEDIUM in Mutation Assessor, DAMAGING in
+    FATHMM, DISEASE_CAUSING (AUTOMATIC or not) in Mutation Taster, a score > 0.5 in
+    Polyphen2 (hdiv or hvar). So max 6 if Sift, LRT, Mutation Assessor, FATHMM, Mutation
+    Taster and Polyphen2 all agree. If the variant could affect splicing, a +1 or
+    +2 could be added to the base score, if ada and/or rf score are > 0.6. To this,
+    is added +10 for STOP_LOST, START_LOST, CODON_CHANGE, CODON_CHANGE_PLUS_CODON_DELETION,
+    CODON_CHANGE_PLUS_CODON_INSERTION, CODON_DELETION, CODON_INSERTION or RARE_AMINO_ACID
+    ; +20 for SPLICE_SITE_REGION ; +30 for SPLICE_SITE_ACCEPTOR, SPLICE_SITE_DONOR
+    or EXON_DELETED ; +40 for FRAME_SHIFT or STOP_GAINED (annotations from SnpEff).'
+  substructures:
+    variants_api: variants.info.consensus_prediction
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.consensus_prediction
+cosmic_count:
+  description: number of samples having this SNV in the COSMIC database
+  substructures:
+    variants_api: variants.info.cosmic_count
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.cosmic_count
+cosmic_id:
+  description: ID of the SNV at the COSMIC (Catalogue Of Somatic Mutations In Cancer)
+    database
+  substructures:
+    variants_api: variants.info.cosmic_id
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.cosmic_id
+dbsnp_id_137:
+  description: 'The dbSNP rs identifier of the SNP, based on the contig : position
+    of the call and whether a record exists at this site in dbSNP'
+  substructures:
+    variants_api: variants.info.dbsnp_id
+    variants_hbase: I.DBSNP137
+    variants_metastore: variants.info.dbsnp_id
+dbsnp_id_141:
+  description: The dbSNP 141 rs identifier of the SNP, based on the position
+  substructures:
+    variants_api: variants.info.dbsnp_id_141
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.dbsnp_id_141
+downsampled:
+  description: Were any of the samples downsampled because of too much coverage?
+  substructures:
+    variants_api: variants.info.downsampled
+    variants_hbase: I.DS
+    variants_metastore: variants.info.downsampled
+evaluation:
+  description: 'This flag can be used to assign an evaluation class to a change: I
+    - Benign - Polymorphism. II - Variant Likely Benign. III - Variant of Unknown
+    Significance. IV - Variant Likely Pathogenic. V - Pathogenic Mutation. A value
+    of zero means that this variant has not been evaluated. Only users associated
+    with the given sample can change this flag, but any user can see the assigned
+    value.'
+  substructures:
+    variants_api: variants.info.evaluation
+    variants_hbase: I.EV
+    variants_metastore: variants.info.evaluation
+evaluation_comments:
+  description: Comments visible to all users but modifiable only by users associated
+    with the sample.
+  substructures:
+    variants_api: variants.info.evaluation_comments
+    variants_hbase: I.EVC
+    variants_metastore: variants.info.evaluation_comments
+evaluation_username:
+  description: User who has set the evaluation flag.
+  substructures:
+    variants_api: variants.info.evaluation_username
+    variants_hbase: I.EVU
+    variants_metastore: variants.info.evaluation_username
+exon_intron_rank:
+  description: Exon/Intron rank number out of total.
+  substructures:
+    variants_api: variants.info.exon_intron_rank
+    variants_hbase: I.ANN []
+    variants_metastore: variants.info.exon_intron_rank
+exon_intron_total:
+  description: Total number of exons or introns.
+  substructures:
+    variants_api: variants.info.exon_intron_total
+    variants_hbase: I.EIT
+    variants_metastore: variants.info.exon_intron_total
+fathmm_pred:
+  description: If a FATHMM_score is <=-1.5 the corresponding NS is predicted as "DAMAGING";
+    otherwise it is predicted as "TOLERATED".
+  substructures:
+    variants_api: variants.info.fathmm_pred
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.fathmm_pred
+fathmm_score:
+  description: FATHMM default score (weighted for human inherited-disease mutations
+    with Disease Ontology). Please refer to Shihab et al Hum. Mut. (2013) 34(1):57-65
+    for details
+  substructures:
+    variants_api: variants.info.fathmm_score
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.fathmm_score
+filters:
+  description: 'In a perfect world, the Confidence field would be based on a complete
+    model for all error modes present in the data used to call. Unfortunately, we
+    are still far from this ideal, and we have to use orthogonal approaches to determine
+    which called sites, independent of Confidence, are machine errors and which are
+    real SNPs. Whatever approach is used to filter the SNPs, the VCFs produced by
+    the GATK carry both the PASSing filter records (the ones that are good have PASS
+    in their FILTER field) as well as those that fail (the filter field is anything
+    but PASS or a dot). A variant won''t pass GATK Standard filter if it met at least
+    one of those conditions: - variant_confidence_by_depth < 2. - fisher_strand_bias
+    > 60. - mapping_quality < 40. - haplotype_score > 13. - rank_sum_test_read_mapping_qual
+    < -12.5. - rank_sum_test_read_pos_bias < -8.'
+  substructures:
+    variants_api: variants.filters[]
+    variants_hbase: R.FILTER
+    variants_metastore: variants.filters[]
+fisher_strand_bias:
+  description: Phred-scaled p-value using Fisher's exact test to detect strand bias.
+  substructures:
+    variants_api: variants.info.fisher_strand_bias
+    variants_hbase: I.FS
+    variants_metastore: variants.info.fisher_strand_bias
+found_in_crap:
+  description: This flag is set if this variant has been found in the CRAP variant
+    calling
+  substructures:
+    variants_api: variants.info.found_in_crap
+    variants_hbase: I.FIC
+    variants_metastore: variants.info.found_in_crap
+found_in_exomes_haplotype_caller:
+  description: This flag is set if this variant has been found in the exomes (GATK
+    Haplotype Caller) analysis
+  substructures:
+    variants_api: variants.info.found_in_exomes_haplotype_caller
+    variants_hbase: I.FEHC
+    variants_metastore: variants.info.found_in_exomes_haplotype_caller
+found_in_exomes_lifescope:
+  description: This flag is set if this variant has been found in the exomes (LifeScope)
+    analysis
+  substructures:
+    variants_api: variants.info.found_in_exomes_lifescope
+    variants_hbase: I.FEL
+    variants_metastore: variants.info.found_in_exomes_lifescope
+found_in_genomes_haplotype_caller:
+  description: This flag is set if this variant has been found in the genomes (GATK
+    Haplotype Caller) analysis
+  substructures:
+    variants_api: variants.info.found_in_genomes_haplotype_caller
+    variants_hbase: I.FGHC
+    variants_metastore: variants.info.found_in_genomes_haplotype_caller
+found_in_panels_haplotype_caller:
+  description: This flag is set if this variant has been found in the gene panels
+    (GATK Haplotype Caller) analysis
+  substructures:
+    variants_api: variants.info.found_in_panels_haplotype_caller
+    variants_hbase: I.FPHC
+    variants_metastore: variants.info.found_in_panels_haplotype_caller
+found_in_panels_torrent_caller:
+  description: This flag is set if this variant has been found in the gene panels
+    (Torrent Variant Caller) analysis
+  substructures:
+    variants_api: variants.info.found_in_panels_torrent_caller
+    variants_hbase: I.FPTC
+    variants_metastore: variants.info.found_in_panels_torrent_caller
+gene_ensembl:
+  description: Gene ID (usually ENSEMBL)
+  substructures:
+    variants_api: variants.info.gene_ensembl
+    variants_hbase: R.GIE
+    variants_metastore: variants.info.gene_ensembl
+gene_symbol:
+  description: Gene symbol.
+  substructures:
+    variants_api: variants.info.gene_symbol
+    variants_hbase: R.GS
+    variants_metastore: variants.info.gene_symbol
+genotype_likelihood_het:
+  description: We provide the allelic depths and coverage fields since this is usually
+    what downstream users want. However, the truly sophisticated users will want to
+    directly use the likelihoods of the three genotypes 0/0, 0/1, and 1/1 provide
+    in the likelihoods for genotypes field. These are normalized, Phred-scaled likelihoods
+    for each of the 0/0, 0/1, and 1/1, without priors. To be concrete, for the het
+    case, this is L(data given that the true genotype is 0/1). The most likely genotype
+    (the one in genotype) is scaled so that it's P = 1.0 (0 when Phred-scaled), and
+    the other likelihoods reflect their Phred-scaled likelihoods relative to this
+    most likely genotype. Currently only provided when the site is biallelic.
+  substructures:
+    variants_api: variants.calls.info.genotype_likelihood_het
+    variants_hbase: F.PL []
+    variants_metastore: variants.calls.info.genotype_likelihood_het
+genotype_likelihood_hom_alt:
+  description: We provide the allelic depths and coverage fields since this is usually
+    what downstream users want. However, the truly sophisticated users will want to
+    directly use the likelihoods of the three genotypes 0/0, 0/1, and 1/1 provide
+    in the likelihoods for genotypes field. These are normalized, Phred-scaled likelihoods
+    for each of the 0/0, 0/1, and 1/1, without priors. To be concrete, for the het
+    case, this is L(data given that the true genotype is 0/1). The most likely genotype
+    (the one in genotype) is scaled so that it's P = 1.0 (0 when Phred-scaled), and
+    the other likelihoods reflect their Phred-scaled likelihoods relative to this
+    most likely genotype. Currently only provided when the site is biallelic.
+  substructures:
+    variants_api: variants.calls.info.genotype_likelihood_hom_alt
+    variants_hbase: F.PL []
+    variants_metastore: variants.calls.info.genotype_likelihood_hom_alt
+genotype_likelihood_hom_ref:
+  description: We provide the allelic depths and coverage fields since this is usually
+    what downstream users want. However, the truly sophisticated users will want to
+    directly use the likelihoods of the three genotypes 0/0, 0/1, and 1/1 provide
+    in the likelihoods for genotypes field. These are normalized, Phred-scaled likelihoods
+    for each of the 0/0, 0/1, and 1/1, without priors. To be concrete, for the het
+    case, this is L(data given that the true genotype is 0/1). The most likely genotype
+    (the one in genotype) is scaled so that it's P = 1.0 (0 when Phred-scaled), and
+    the other likelihoods reflect their Phred-scaled likelihoods relative to this
+    most likely genotype. Currently only provided when the site is biallelic.
+  substructures:
+    variants_api: variants.calls.info.genotype_likelihood_hom_ref
+    variants_hbase: F.PL []
+    variants_metastore: variants.calls.info.genotype_likelihood_hom_ref
+genotype_quality:
+  description: The Genotype Quality, as a Phred-scaled confidence at the true genotype
+    is the one provided in genotype. In diploid case, if genotype is 0/1, then genotype
+    quality is really L(0/1) / (L(0/0) + L(0/1) + L(1/1)), where L is the likelihood
+    of the NGS sequencing data under the model of that the sample is 0/0, 0/1/, or
+    1/1.
+  substructures:
+    variants_api: variants.calls.info.genotype_quality
+    variants_hbase: F.GQ
+    variants_metastore: variants.calls.info.genotype_quality
+gerp_nr:
+  description: GERP++ neutral rate
+  substructures:
+    variants_api: variants.info.gerp_nr
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.gerp_nr
+gerp_rs:
+  description: GERP++ RS score, the larger the score, the more conserved the site.
+  substructures:
+    variants_api: variants.info.gerp_rs
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.gerp_rs
+gonl_ac:
+  description: Alternative allele counts in the GoNL database.
+  substructures:
+    variants_api: variants.info.gonl_ac
+    variants_hbase: I.GONL []
+    variants_metastore: variants.info.gonl_ac
+gonl_af:
+  description: Alternative allele frequency in the GoNL database.
+  substructures:
+    variants_api: variants.info.gonl_af
+    variants_hbase: I.GONL []
+    variants_metastore: variants.info.gonl_af
+haplotype_score:
+  description: Consistency of the site with at most two segregating haplotypes.
+  substructures:
+    variants_api: variants.info.haplotype_score
+    variants_hbase: I.HS
+    variants_metastore: variants.info.haplotype_score
+hgvs_dna:
+  description: HGVS notation (DNA).
+  substructures:
+    variants_api: variants.info.hgvs_dna
+    variants_hbase: I.ANN []
+    variants_metastore: variants.info.hgvs_dna
+hgvs_protein:
+  description: HGVS notation (protein).
+  substructures:
+    variants_api: variants.info.hgvs_protein
+    variants_hbase: I.ANN []
+    variants_metastore: variants.info.hgvs_protein
+history:
+  description: History of evaluation modifications, including username and date.
+  substructures:
+    variants_api: variants.info.history
+    variants_hbase: I.HIST
+    variants_metastore: variants.info.history
+id:
+  description: Variant unique identifier in the database.
+  substructures:
+    variants_api: variants.id
+    variants_hbase: R.ID
+    variants_metastore: variants.id
+insert_date:
+  description: Time of insertion of this variant in the database.
+  substructures:
+    variants_api: variants.info.insert_date
+    variants_hbase: I.ID
+    variants_metastore: variants.info.insert_date
+is_scSNV_Ensembl:
+  description: !!python/str "Whether the SNV is a scSNV according to Ensembl (i.e.\
+    \ in splicing consensus regions, -3 to +8 at the 5\u2019 splice site and -12 to\
+    \ +2 at the 3\u2019 splice site)."
+  substructures:
+    variants_api: variants.info.is_scSNV_Ensembl
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.is_scSNV_Ensembl
+is_scSNV_RefSeq:
+  description: !!python/str "Whether the SNV is a scSNV according to RefSeq (i.e.\
+    \ in splicing consensus regions, -3 to +8 at the 5\u2019 splice site and -12 to\
+    \ +2 at the 3\u2019 splice site)."
+  substructures:
+    variants_api: variants.info.is_scSNV_RefSeq
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.is_scSNV_RefSeq
+largest_homopolymer:
+  description: Largest contiguous homopolymer run of the variant allele in either
+    direction on the reference.
+  substructures:
+    variants_api: variants.info.largest_homopolymer
+    variants_hbase: I.HR
+    variants_metastore: variants.info.largest_homopolymer
+lof_tolerant_or_recessive_gene:
+  description: lof-tolerant = seen in homozygous state in at least one 1000G individual;
+    recessive = known OMIM recessive disease gene; NA = unclassified
+  substructures:
+    variants_api: variants.info.lof_tolerant_or_recessive_gene
+    variants_hbase: I.LOF
+    variants_metastore: variants.info.lof_tolerant_or_recessive_gene
+lrt_pred:
+  description: LRT prediction, DELETERIOUS, NEUTRAL or UNKNOWN
+  substructures:
+    variants_api: variants.info.lrt_pred
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.lrt_pred
+lrt_score:
+  description: The LRT two-sided p-value
+  substructures:
+    variants_api: variants.info.lrt_score
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.lrt_score
+mapping_quality:
+  description: RMS Mapping Quality.
+  substructures:
+    variants_api: variants.info.mapping_quality
+    variants_hbase: I.MQ
+    variants_metastore: variants.info.mapping_quality
+mapping_quality_zero_reads:
+  description: Total mapping quality zero reads.
+  substructures:
+    variants_api: variants.info.mapping_quality_zero_read
+    variants_hbase: I.MQ0
+    variants_metastore: variants.info.mapping_quality_zero_read
+mle_allele_count:
+  description: Maximum likelihood expectation (MLE) for the allele counts.
+  substructures:
+    variants_api: variants.info.mle_allele_count
+    variants_hbase: I.MLC
+    variants_metastore: variants.info.mle_allele_count
+mle_allele_frequency:
+  description: Maximum likelihood expectation (MLE) for the allele frequency.
+  substructures:
+    variants_api: variants.info.mle_allele_frequency
+    variants_hbase: I.MLF
+    variants_metastore: variants.info.mle_allele_frequency
+mutation_assessor_pred:
+  description: 'MutationAssessor functional impact of a variant: predicted functional
+    (HIGH, MEDIUM) or predicted non-functional (LOW, NEUTRAL)'
+  substructures:
+    variants_api: variants.info.mutation_assessor_pred
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.mutation_assessor_pred
+mutation_assessor_score:
+  description: MutationAssessor functional impact combined score
+  substructures:
+    variants_api: variants.info.mutation_assessor_score
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.mutation_assessor_score
+mutation_taster_pred:
+  description: MutationTaster prediction, DISEASE_CAUSING_AUTOMATIC, DISEASE_CAUSING,
+    POLYMORPHISM or POLYMORPHISM_AUTOMATIC
+  substructures:
+    variants_api: variants.info.mutation_taster_pred
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.mutation_taster_pred
+mutation_taster_score:
+  description: MutationTaster p-value
+  substructures:
+    variants_api: variants.info.mutation_taster_score
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.mutation_taster_score
+num_genes:
+  description: Number of genes found at this position. For the rare cases with more
+    than one gene for a given position, remember that only one gene is recorded in
+    the database, so the statistics for the other genes are wrong.
+  substructures:
+    variants_api: variants.info.number_genes
+    variants_hbase: I.NG
+    variants_metastore: variants.info.number_genes
+other_effects:
+  description: This flag is set when other more damaging effects are predicted for
+    other transcripts.
+  substructures:
+    variants_api: variants.info.other_effects
+    variants_hbase: I.ANN []
+    variants_metastore: variants.info.other_effects
+outsourcing:
+  description: This flag is set if the sample has been outsourced by an exernal company
+    (Note that this differenciation is important for machine specific errors).
+  substructures:
+    clinical_mysql: run.outsourcing
+    variants_api: readGroupSets.readGroups.experiment.sequencingCenter
+    variants_metastore: readGroupSets.readGroups.experiment.sequencingCenter
+partition:
+  description: Patient pathology partition (used for database optimisation, try to
+    make queries using patient from as few different partitions as possible).
+  substructures: {}
+pathology:
+  description: Patient pathology.
+  substructures:
+    clinical_mysql: pathology.name
+    variants_api: readGroupSets.readGroups.info.pathology
+    variants_metastore: readGroupSets.readGroups.info.pathology
+patient:
+  description: Patient identifier.
+  substructures:
+    clinical_mysql: patient.customer_patient_id
+    variants_api: readGroupSets.readGroups.info.patient
+    variants_metastore: readGroupSets.readGroups.info.patient
+phastCons100way_vertebrate:
+  description: phastCons conservation score based on the multiple alignments of 100
+    vertebrate genomes (including human). The larger the score, the more conserved
+    the site.
+  substructures:
+    variants_api: variants.info.phastCons100way_vertebrate
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.phastCons100way_vertebrate
+phastCons46way_placental:
+  description: phastCons conservation score based on the multiple alignments of 33
+    placental mammal genomes (including human). The larger the score, the more conserved
+    the site.
+  substructures:
+    variants_api: variants.info.phastCons46way_placental
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.phastCons46way_placental
+phastCons46way_primate:
+  description: phastCons conservation score based on the multiple alignments of 10
+    primate genomes (including human). The larger the score, the more conserved the
+    site.
+  substructures:
+    variants_api: variants.info.phastCons46way_primate
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.phastCons46way_primate
+phyloP100way_vertebrate:
+  description: phyloP (phylogenetic p-values) conservation score based on the multiple
+    alignments of 100 vertebrate genomes (including human). The larger the score,
+    the more conserved the site.
+  substructures:
+    variants_api: variants.info.phyloP100way_vertebrate
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.phyloP100way_vertebrate
+phyloP46way_placental:
+  description: phyloP (phylogenetic p-values) conservation score based on the multiple
+    alignments of 33 placental mammal genomes (including human). The larger the score,
+    the more conserved the site.
+  substructures:
+    variants_api: variants.info.phyloP46way_placental
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.phyloP46way_placental
+phyloP46way_primate:
+  description: phyloP (phylogenetic p-values) conservation score based on the multiple
+    alignments of 10 primate genomes (including human). The larger the score, the
+    more conserved the site.
+  substructures:
+    variants_api: variants.info.phyloP46way_primate
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.phyloP46way_primate
+platform:
+  description: 'Platform on which the variant has been detected : SOLID_5500_XL (Life
+    Technologies Solid 5500XL), SOLID_5500_WF (Life Technologies Solid 5500 with the
+    WildFire upgrade), HISEQ_2000 (Illumina HiSeq 2000), HISEQ_2500 (Illumina HiSeq
+    2500), MISEQ (Illumina MiSeq), ION_TORRENT (Life Technologies Ion Torrent) or
+    PROTON (Life Technologies Proton).'
+  substructures:
+    clinical_mysql: run.platform
+    variants_api: readGroupSets.readGroups.experiment.InstrumentModel
+    variants_metastore: readGroupSets.readGroups.experiment.InstrumentModel
+pos:
+  description: 'Position : chromosome and position gives the contig on which the variant
+    occurs. For indels this is actually the base preceding the event.'
+  substructures:
+    variants_api: variants.start
+    variants_hbase: R.P
+    variants_metastore: variants.start
+pph2_hdiv_pred:
+  description: 'Polyphen2_HDIV_pred: Polyphen2 prediction based on HumDiv, PROBABLY_DAMAGING,
+    POSSIBLY_DAMAGING and BENIGN.'
+  substructures:
+    variants_api: variantI.info.pph2_hdiv_pred
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variantI.info.pph2_hdiv_pred
+pph2_hdiv_score:
+  description: Polyphen2 score based on HumDiv, i.e. hdiv_prob. The score ranges from
+    0 to 1, and the corresponding prediction is "probably damaging" if it is in [0.957,1];
+    "possibly damaging" if it is in [0.453,0.956]; "benign" if it is in [0,0.45
+  substructures:
+    variants_api: variants.info.pph2_hdiv_score
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.pph2_hdiv_score
+pph2_hvar_pred:
+  description: 'Polyphen2_HVAR_pred: Polyphen2 prediction based on HumVar, PROBABLY_DAMAGING,
+    POSSIBLY_DAMAGING and BENIGN.'
+  substructures:
+    variants_api: variants.info.pph2_hvar_pred
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.pph2_hvar_pred
+pph2_hvar_score:
+  description: Polyphen2 score based on HumVar, i.e. hvar_prob.The score ranges from
+    0 to 1, and the corresponding prediction is "probably damaging" if it is in [0.909,1];
+    "possibly damaging" if it is in [0.447,0.908]; "benign" if it is in [0,0.446
+  substructures:
+    variants_api: variants.info.pph2_hvar_score
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.pph2_hvar_score
+project_id:
+  description: Id of the sample in the project table
+  substructures:
+    clinical_mysql: sample.sample_id
+    variants_api: readGroupSets.readGroups.sampleID
+    variants_hbase: R.SI
+    variants_metastore: readGroupSets.readGroups.sampleID
+protein_length:
+  description: Number of amino acids (one based, including START, but not STOP)
+  substructures:
+    variants_api: variants.info.protein_length
+    variants_hbase: I.ANN []
+    variants_metastore: variants.info.protein_length
+protein_pos:
+  description: Position in the protein (one based, including START, but not STOP)
+  substructures:
+    variants_api: variants.info.protein_pos
+    variants_hbase: I.ANN []
+    variants_metastore: variants.info.protein_pos
+public_comments:
+  description: Public comments, visible and modifiable by all users.
+  substructures:
+    variants_api: variants.info.public_comments
+    variants_hbase: I.PC
+    variants_metastore: variants.info.public_comments
+rank_sum_test_base_qual:
+  description: Z-score from Wilcoxon rank sum test of alternative Vs. reference base
+    qualities
+  substructures:
+    variants_api: variants.info.rank_sum_test_base_qual
+    variants_hbase: I.RBQ
+    variants_metastore: variants.info.rank_sum_test_base_qual
+rank_sum_test_read_mapping_qual:
+  description: Z-score From Wilcoxon rank sum test of Alt vs. Ref read mapping qualities
+  substructures:
+    variants_api: variants.info.rank_sum_test_read_mapping_qual
+    variants_hbase: I.RRMQ
+    variants_metastore: variants.info.rank_sum_test_read_mapping_qual
+rank_sum_test_read_pos_bias:
+  description: Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias
+  substructures:
+    variants_api: variants.info.rank_sum_test_read_pos_bias
+    variants_hbase: I.RPB
+    variants_metastore: variants.info.rank_sum_test_read_pos_bias
+read_depth:
+  description: Approximate read depth (reads with MQ=255 or with bad mates are filtered).
+  substructures:
+    variants_api: variants.calls.info.read_depth
+    variants_hbase: F.DPF
+    variants_metastore: variants.calls.info.read_depth
+reference:
+  description: The reference base that vary in the samples, or in the population in
+    general. Note that reference is always given on the forward strand. For indels
+    the reference bases always include at least one base each (the base before the
+    event).
+  substructures:
+    variants_api: variants.referenceBases
+    variants_hbase: R.REF
+    variants_metastore: variants.referenceBases
+reliability_index:
+  description: Number of observed component scores (except the maximum frequency in
+    the 1000 genomes populations) for aggregation_score_radial_svm and aggregation_score_lr.
+    Ranges from 1 to 10. As aggregation_score_radial_svm and aggregation_score_lr
+    scores are calculated based on imputed data, the less missing component scores,
+    the higher the reliability of the scores and predictions.
+  substructures:
+    variants_api: variants.info.reliability_index
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.reliability_index
+repeat_number_alt:
+  description: Number of times tandem repeat unit is repeated for the alternative
+    allele.
+  substructures:
+    variants_api: variants.info.repeat_number_alt
+    variants_hbase: I.RPA []
+    variants_metastore: variants.info.repeat_number_alt
+repeat_number_ref:
+  description: Number of times tandem repeat unit is repeated for the reference allele.
+  substructures:
+    variants_api: variants.info.repeat_number_ref
+    variants_hbase: I.RPA []
+    variants_metastore: variants.info.repeat_number_ref
+repeat_unit:
+  description: Tandem repeat unit (bases).
+  substructures:
+    variants_api: variants.info.repeat_unit
+    variants_hbase: I.RU
+    variants_metastore: variants.info.repeat_unit
+run_label:
+  description: Name of the run (experiment number + date of run processing on the
+    Solid + name)
+  substructures:
+    clinical_mysql: run.name
+    variants_api: readGroupSets.readGroups[].experiment.libraryId
+    variants_metastore: readGroupSets.readGroups[].experiment.libraryId
+sample_type:
+  description: Sample type (Blood, Tissue or Cells).
+  substructures:
+    clinical_mysql: sample.type
+    variants_api: readGroupSets.readGroups.info.sample_type
+    variants_metastore: readGroupSets.readGroups.info.sample_type
+short_tandem_repeat:
+  description: This flag is set when variant is a short tandem repeat.
+  substructures:
+    variants_api: variants.info.short_tandem_repeat
+    variants_hbase: I.STR
+    variants_metastore: variants.info.short_tandem_repeat
+sift_pred:
+  description: SIFT score, If a score is smaller than 0.05 the corresponding NS is
+    predicted as DAMAGING; otherwise it is predicted as TOLERATED.
+  substructures:
+    variants_api: variants.info.sift_pred
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.sift_pred
+sift_score:
+  description: SIFT score, If a score is smaller than 0.05 the corresponding NS is
+    predicted as DAMAGING; otherwise it is predicted as TOLERATED.
+  substructures:
+    variants_api: variants.info.sift_score
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.sift_score
+siphy_29way_log_odds:
+  description: SiPhy score based on 29 mammals genomes. The larger the score, the
+    more conserved the site.
+  substructures:
+    variants_api: variants.info.siphy_29way_log_odds
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.siphy_29way_log_odds
+siphy_29way_pi:
+  description: The estimated stationary distribution of A, C, G and T at the site,
+    using SiPhy algorithm based on 29 mammals genomes.
+  substructures:
+    variants_api: variants.info.siphy_29way_pi
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.siphy_29way_pi
+snpeff_effect:
+  description: Effect of this variant predicted by SnpEff.
+  substructures:
+    variants_api: variants.info.snpeff_effect
+    variants_hbase: I.ANN []
+    variants_metastore: variants.info.snpeff_effect
+snpeff_impact:
+  description: 'Impact of the effect predicted by SnpEff. HIGH: FRAME SHIFT, EXON
+    DELETED, STOP GAINED, STOP LOST, START LOST, SPLICE SITE ACCEPTOR, SPLICE SITE
+    DONOR. MODERATE: NON SYNONYMOUS CODING, CODON CHANGE, CODON INSERTION, CODON DELETION,
+    CODON CHANGE PLUS CODON INSERTION, CODON CHANGE PLUS CODON DELETION, UTR 3 DELETED,
+    UTR 5 DELETED. LOW: START GAINED, SYNONYMOUS START, NON SYNONYMOUS START, SYNONYMOUS
+    CODING, SYNONYMOUS STOP, NON SYNONYMOUS STOP. MODIFIER: CDS, GENE, TRANSCRIPT,
+    EXON, INTRON, INTRON CONSERVED, DOWNSTREAM, UPSTREAM, INTERGENIC, INTERGENIC CONSERVED,
+    INTRAGENIC, WITHIN NON CODING GENE, CHROMOSOME, REGULATION, UTR 3 PRIME, UTR 5
+    PRIME.'
+  substructures:
+    variants_api: variants.info.snpeff_impact
+    variants_hbase: I.ANN []
+    variants_metastore: variants.info.snpeff_impact
+splicing_ada_pred:
+  description: Prediction based on ada-boost (0.6 cutoff).
+  substructures:
+    variants_api: variants.info.splicing_ada_pred
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.splicing_ada_pred
+splicing_ada_score:
+  description: Ensemble prediction score based on ada-boost. Ranges 0 to 1. The larger
+    the score the higher probability the scSNV will affect splicing. The suggested
+    cutoff for a binary prediction (affecting splicing vs. not affecting splicing)
+    is 0.6.
+  substructures:
+    variants_api: variants.info.splicing_ada_score
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.splicing_ada_score
+splicing_rf_pred:
+  description: Prediction based on random forests (0.6 cutoff)
+  substructures:
+    variants_api: variants.info.splicing_rf_pred
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.splicing_rf_pred
+splicing_rf_score:
+  description: Ensemble prediction score based on random forests. Ranges 0 to 1. The
+    larger the score the higher probability the scSNV will affect splicing. The suggested
+    cutoff for a binary prediction (affecting splicing vs. not affecting splicing)
+    is 0.6.
+  substructures:
+    variants_api: variants.info.splicing_rf_score
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.splicing_rf_score
+strand_bias:
+  description: How much evidence is there for Strand Bias (the variation being seen
+    on only the forward or only the reverse strand) in the reads? Higher strand bias
+    values denote more bias (and therefore are more likely to indicate false positive
+    calls).
+  substructures:
+    variants_api: variants.strand_bias
+    variants_hbase: I.SB
+    variants_metastore: variants.strand_bias
+transcript_ensembl:
+  description: Ensembl ID of the canonical transcript.
+  substructures:
+    variants_api: variants.info.transcript_ensembl
+    variants_hbase: I.TRE
+    variants_metastore: variants.info.transcript_ensembl
+transcript_refseq_mrna:
+  description: RefSeq mRNA ID of the canonical transcript.
+  substructures:
+    variants_api: variants.info.transcript_refseq_mrna
+    variants_hbase: I.TRRM
+    variants_metastore: variants.info.transcript_refseq_mrna
+transcript_refseq_prot:
+  description: RefSeq Protein ID of the canonical transcript.
+  substructures:
+    variants_api: variants.info.transcript_refseq_prot
+    variants_hbase: I.TRRP
+    variants_metastore: variants.info.transcript_refseq_prot
+transcript_uniprot_acc:
+  description: UniProt Accession used for Polyphen score (generally the canonical
+    transcript).
+  substructures:
+    variants_api: variants.info.transcript_uniprot_acc
+    variants_hbase: I.TRUAC
+    variants_metastore: variants.info.transcript_uniprot_acc
+transcript_uniprot_id:
+  description: UniProt ID of the canonical transcript.
+  substructures:
+    variants_api: variants.info.transcript_uniprot_id
+    variants_hbase: I.TRUID
+    variants_metastore: variants.info.transcript_uniprot_id
+unisnp_ids:
+  description: rs numbers from UniSNP, which is a cleaned version of dbSNP build 129
+    (dbSNP 129 is generally regarded as the last "clean" dbSNP without "contamination"
+    from 1000 Genomes Project and other large-scale next-generation sequencing projects.).
+  substructures:
+    variants_api: variants.info.unisnp_id
+    variants_hbase: I.UNID
+    variants_metastore: variants.info.unisnp_id
+variant_confidence_by_depth:
+  description: Variant confidence (given as (AB+BB)/AA from the likelihoods for genotypes)
+    / unfiltered depth. Low scores are indicative of false positive calls and artifacts.
+  substructures:
+    variants_api: variants.info.confidence_by_depth
+    variants_hbase: I.QD
+    variants_metastore: variants.info.confidence_by_depth
+vest_score:
+  description: VEST 3.0 score. Score ranges from 0 to 1. The larger the score the
+    more likely the mutation may cause functional change. In case there are multiple
+    scores for the same variant, the largest score (most damaging) is presented. VEST
+    predictions can be used to prioritize mutations by sorting VEST scores from largest
+    to smallest. This will rank the mutations by similarity to the disease mutation
+    class of the VEST training set versus the neutral class mutations. Please refer
+    to Carter et al., (2013) BMC Genomics. 14(3) 1-16 for details. Please note this
+    score is free for non-commercial use. For more details please refer to http://wiki.chasmsoftware.org/index.php/SoftwareLicense.
+    Commercial users should contact the Johns Hopkins Technology Transfer office.
+  substructures:
+    variants_api: variants.info.vest_score
+    variants_hbase: I.DBNSFP []
+    variants_metastore: variants.info.vest_score
+zygosity:
+  description: Is this homozygous or heterozygous.
+  substructures:
+    variants_api: variants.calls.info.zygosity
+    variants_hbase: F.GT []
+    variants_metastore: variants.calls.info.zygosity

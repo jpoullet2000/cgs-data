@@ -1,0 +1,326 @@
+variants:
+  F:
+    AD [0]:
+      description: This and Coverage are complementary fields that are two important
+        ways of thinking about the depth of the data for this sample at this site.
+        The Coverage field describe the total depth of reads that passed the Unified
+        Genotypers internal quality control metrics (like MAPQ > 17, for example),
+        whatever base was present in the read at this site. The allelic depths values
+        (one for each of reference and alternative fields) is the count of all reads
+        that carried with them the reference and alternative alleles. The reason for
+        this distinction is that the coverage is in some sense reflective of the power
+        I have to determine the genotype of the sample at this site, while the allelic
+        depths tells me how many times I saw each of the reference and alternative
+        alleles in the reads, free of any bias potentially introduced by filtering
+        the reads.
+      type: integer
+    AD [1]:
+      description: This and Coverage are complementary fields that are two important
+        ways of thinking about the depth of the data for this sample at this site.
+        The Coverage field describe the total depth of reads that passed the Unified
+        Genotypers internal quality control metrics (like MAPQ > 17, for example),
+        whatever base was present in the read at this site. The allelic depths values
+        (one for each of reference and alternative fields) is the count of all reads
+        that carried with them the reference and alternative alleles. The reason for
+        this distinction is that the coverage is in some sense reflective of the power
+        I have to determine the genotype of the sample at this site, while the allelic
+        depths tells me how many times I saw each of the reference and alternative
+        alleles in the reads, free of any bias potentially introduced by filtering
+        the reads.
+      type: integer
+    ADPA:
+      description: Allelic depth proportion in regard of total coverage for the alternative
+        allele.
+      type: float
+    ADPR:
+      description: Allelic depth proportion in regard of total coverage for the reference
+        allele.
+      type: float
+    DPF:
+      description: Approximate read depth (reads with MQ=255 or with bad mates are
+        filtered).
+      type: integer
+    GQ:
+      description: The Genotype Quality, as a Phred-scaled confidence at the true
+        genotype is the one provided in genotype. In diploid case, if genotype is
+        0/1, then genotype quality is really L(0/1) / (L(0/0) + L(0/1) + L(1/1)),
+        where L is the likelihood of the NGS sequencing data under the model of that
+        the sample is 0/0, 0/1/, or 1/1.
+      type: float
+    GT []:
+      description: Is this homozygous or heterozygous.
+      type: string
+    PL []:
+      description: We provide the allelic depths and coverage fields since this is
+        usually what downstream users want. However, the truly sophisticated users
+        will want to directly use the likelihoods of the three genotypes 0/0, 0/1,
+        and 1/1 provide in the likelihoods for genotypes field. These are normalized,
+        Phred-scaled likelihoods for each of the 0/0, 0/1, and 1/1, without priors.
+        To be concrete, for the het case, this is L(data given that the true genotype
+        is 0/1). The most likely genotype (the one in genotype) is scaled so that
+        it's P = 1.0 (0 when Phred-scaled), and the other likelihoods reflect their
+        Phred-scaled likelihoods relative to this most likely genotype. Currently
+        only provided when the site is biallelic.
+      type: float
+  I:
+    AN:
+      description: 'Number of alleles found at this position : reference + number
+        of alternative. Note that even if reference is not present, it is counted,
+        so can spot easily tri-allelic cases when this value is equal to 3.'
+      type: integer
+    ANN []:
+      description: Number of amino acids (one based, including START, but not STOP)
+      type: integer
+    BIOT:
+      description: BioType, as reported by ENSEMBL.
+      type: string
+    CDNAL:
+      description: !!python/str "trancript\u2019s cDNA length (one based)"
+      type: integer
+    CI:
+      description: 'This flag can be used if this variant has been evaluated insilico
+        (e.g. with IGV): set to true if it\''s likely a real change, or to false if
+        it\''s likely a sequencing error (e.g. alternative allele not specific to
+        pathology). Only users associated with the given sample can change this flag,
+        but any user can see the assigned value.'
+      type: integer
+    CIU:
+      description: User who has set the check_insilico flag.
+      type: string
+    CS:
+      description: 'This field can be used if this variant has been evaluated for
+        segregation: SINGLE (No other sample in family), COSEG (Variant cosegregates),
+        CARRIERS (Some unaffected carrier(s)), NO_COSEG (Not in other affected(s)),
+        NO_COSEG_OTHER (Does not cosegregate in other families) or NOT_CHECKED (Not
+        checked for segregation, default value). Only users associated with the given
+        sample can change this field, but any user can see the assigned value.'
+      type: string
+    CSC:
+      description: 'This flag can be used if this variant has been evaluated for mosaicism:
+        set to true if it\''s a confirmed somatic change, or to false if it\''s a
+        germline change. Only users associated with the given sample can change this
+        flag, but any user can see the assigned value.'
+      type: integer
+    CSCU:
+      description: User who has set the check_somatic_change flag.
+      type: string
+    CSU:
+      description: User who has set the check_segregation field.
+      type: string
+    CT:
+      description: 'Type of change : SNP, MNP, INS, DEL'
+      type: string
+    CVC:
+      description: 'This flag can be used if this variant has been tested in the lab:
+        set to true if the change has been confirmed, and to false if not. Only users
+        associated with the given sample can change this flag, but any user can see
+        the assigned value.'
+      type: integer
+    CVCU:
+      description: User who has set the check_validated_change flag.
+      type: string
+    DBNSFP []:
+      description: Prediction based on random forests (0.6 cutoff)
+      type: string
+    DBSNP137:
+      description: 'The dbSNP rs identifier of the SNP, based on the contig : position
+        of the call and whether a record exists at this site in dbSNP'
+      type: string
+    DS:
+      description: Were any of the samples downsampled because of too much coverage?
+      type: boolean
+    EIT:
+      description: Total number of exons or introns.
+      type: integer
+    EV:
+      description: 'This flag can be used to assign an evaluation class to a change:
+        I - Benign - Polymorphism. II - Variant Likely Benign. III - Variant of Unknown
+        Significance. IV - Variant Likely Pathogenic. V - Pathogenic Mutation. A value
+        of zero means that this variant has not been evaluated. Only users associated
+        with the given sample can change this flag, but any user can see the assigned
+        value.'
+      type: integer
+    EVC:
+      description: Comments visible to all users but modifiable only by users associated
+        with the sample.
+      type: string
+    EVU:
+      description: User who has set the evaluation flag.
+      type: string
+    FEHC:
+      description: This flag is set if this variant has been found in the exomes (GATK
+        Haplotype Caller) analysis
+      type: boolean
+    FEL:
+      description: This flag is set if this variant has been found in the exomes (LifeScope)
+        analysis
+      type: boolean
+    FGHC:
+      description: This flag is set if this variant has been found in the genomes
+        (GATK Haplotype Caller) analysis
+      type: boolean
+    FIC:
+      description: This flag is set if this variant has been found in the CRAP variant
+        calling
+      type: boolean
+    FPHC:
+      description: This flag is set if this variant has been found in the gene panels
+        (GATK Haplotype Caller) analysis
+      type: boolean
+    FPTC:
+      description: This flag is set if this variant has been found in the gene panels
+        (Torrent Variant Caller) analysis
+      type: boolean
+    FS:
+      description: Phred-scaled p-value using Fisher's exact test to detect strand
+        bias.
+      type: float
+    GONL []:
+      description: Alternative allele frequency in the GoNL database.
+      type: double
+    HIST:
+      description: History of evaluation modifications, including username and date.
+      type: string
+    HR:
+      description: Largest contiguous homopolymer run of the variant allele in either
+        direction on the reference.
+      type: integer
+    HS:
+      description: Consistency of the site with at most two segregating haplotypes.
+      type: double
+    ID:
+      description: Time of insertion of this variant in the database.
+      type: timestamp
+    LOF:
+      description: lof-tolerant = seen in homozygous state in at least one 1000G individual;
+        recessive = known OMIM recessive disease gene; NA = unclassified
+      type: string
+    MLC:
+      description: Maximum likelihood expectation (MLE) for the allele counts.
+      type: integer
+    MLF:
+      description: Maximum likelihood expectation (MLE) for the allele frequency.
+      type: float
+    MQ:
+      description: RMS Mapping Quality.
+      type: float
+    MQ0:
+      description: Total mapping quality zero reads.
+      type: float
+    NG:
+      description: Number of genes found at this position. For the rare cases with
+        more than one gene for a given position, remember that only one gene is recorded
+        in the database, so the statistics for the other genes are wrong.
+      type: integer
+    PC:
+      description: Public comments, visible and modifiable by all users.
+      type: string
+    QD:
+      description: Variant confidence (given as (AB+BB)/AA from the likelihoods for
+        genotypes) / unfiltered depth. Low scores are indicative of false positive
+        calls and artifacts.
+      type: float
+    RBQ:
+      description: Z-score from Wilcoxon rank sum test of alternative Vs. reference
+        base qualities
+      type: double
+    RPA []:
+      description: Number of times tandem repeat unit is repeated for the alternative
+        allele.
+      type: integer
+    RPB:
+      description: Z-score from Wilcoxon rank sum test of Alt vs. Ref read position
+        bias
+      type: double
+    RRMQ:
+      description: Z-score From Wilcoxon rank sum test of Alt vs. Ref read mapping
+        qualities
+      type: double
+    RU:
+      description: Tandem repeat unit (bases).
+      type: string
+    SB:
+      description: How much evidence is there for Strand Bias (the variation being
+        seen on only the forward or only the reverse strand) in the reads? Higher
+        strand bias values denote more bias (and therefore are more likely to indicate
+        false positive calls).
+      type: float
+    STR:
+      description: This flag is set when variant is a short tandem repeat.
+      type: boolean
+    TRE:
+      description: Ensembl ID of the canonical transcript.
+      type: string
+    TRRM:
+      description: RefSeq mRNA ID of the canonical transcript.
+      type: string
+    TRRP:
+      description: RefSeq Protein ID of the canonical transcript.
+      type: string
+    TRUAC:
+      description: UniProt Accession used for Polyphen score (generally the canonical
+        transcript).
+      type: string
+    TRUID:
+      description: UniProt ID of the canonical transcript.
+      type: string
+    UNID:
+      description: rs numbers from UniSNP, which is a cleaned version of dbSNP build
+        129 (dbSNP 129 is generally regarded as the last "clean" dbSNP without "contamination"
+        from 1000 Genomes Project and other large-scale next-generation sequencing
+        projects.).
+      type: string
+  R:
+    ALT:
+      description: The alternative base that vary in the samples, or in the population
+        in general. Note that alternative is always given on the forward strand. For
+        indels the alternative bases always include at least one base each (the base
+        before the event).
+      type: List of string
+    C:
+      description: 'Chromosome : chromosome and position gives the contig on which
+        the variant occurI. For indels this is actually the base preceding the event.'
+      type: string
+    FILTER:
+      description: 'In a perfect world, the Confidence field would be based on a complete
+        model for all error modes present in the data used to call. Unfortunately,
+        we are still far from this ideal, and we have to use orthogonal approaches
+        to determine which called sites, independent of Confidence, are machine errors
+        and which are real SNPs. Whatever approach is used to filter the SNPs, the
+        VCFs produced by the GATK carry both the PASSing filter records (the ones
+        that are good have PASS in their FILTER field) as well as those that fail
+        (the filter field is anything but PASS or a dot). A variant won''t pass GATK
+        Standard filter if it met at least one of those conditions: - variant_confidence_by_depth
+        < 2. - fisher_strand_bias > 60. - mapping_quality < 40. - haplotype_score
+        > 13. - rank_sum_test_read_mapping_qual < -12.5. - rank_sum_test_read_pos_bias
+        < -8.'
+      type: string
+    GIE:
+      description: Gene ID (usually ENSEMBL)
+      type: string
+    GS:
+      description: Gene symbol.
+      type: string
+    ID:
+      description: Variant unique identifier in the database.
+      type: integer
+    P:
+      description: 'Position : chromosome and position gives the contig on which the
+        variant occurs. For indels this is actually the base preceding the event.'
+      type: integer
+    QUAL:
+      description: The Phred scaled probability of Probability that reference/alternative
+        polymorphism exists at this site given sequencing data. Because the Phred
+        scale is -10 * log(1-p), a value of 10 indicates a 1 in 10 chance of error,
+        while a 100 indicates a 1 in 10^10 chance. The GATK values can grow very large
+        when lots of NGS data is used to call.
+      type: float
+    REF:
+      description: The reference base that vary in the samples, or in the population
+        in general. Note that reference is always given on the forward strand. For
+        indels the reference bases always include at least one base each (the base
+        before the event).
+      type: string
+    SI:
+      description: Id of the sample in the project table
+      type: integer

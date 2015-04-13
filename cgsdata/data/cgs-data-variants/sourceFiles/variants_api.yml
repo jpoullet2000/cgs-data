@@ -1,0 +1,300 @@
+readGroupSets.readGroups:
+  columns:
+    sampleID:
+      type: integer
+readGroupSets.readGroups.experiment:
+  columns:
+    InstrumentModel:
+      type: string
+    sequencingCenter:
+      type: string
+readGroupSets.readGroups.info:
+  columns:
+    biotype:
+      type: string
+    pathology:
+      type: string
+    patient:
+      type: string
+    sample_type:
+      type: string
+readGroupSets.readGroups[].experiment:
+  columns:
+    libraryId:
+      type: string
+variantI.info:
+  columns:
+    pph2_hdiv_pred:
+      type: string
+variants:
+  columns:
+    alternateBases[]:
+      type: List of string
+    filters[]:
+      type: string
+    id:
+      type: integer
+    quality:
+      type: float
+    referenceBases:
+      type: string
+    referenceName:
+      type: string
+    start:
+      type: integer
+    strand_bias:
+      type: float
+variants.calls.info:
+  columns:
+    allelic_depth_proportion_alt:
+      type: float
+    allelic_depth_proportion_ref:
+      type: float
+    confidence_by_depth:
+      type: integer
+    genotype_likelihood_het:
+      type: float
+    genotype_likelihood_hom_alt:
+      type: float
+    genotype_likelihood_hom_ref:
+      type: float
+    genotype_quality:
+      type: float
+    read_depth:
+      type: integer
+    zygosity:
+      type: string
+variants.info:
+  columns:
+    1000G_AC:
+      type: integer
+    1000G_AF:
+      type: double
+    ARIC5606_AA_AC:
+      type: integer
+    ARIC5606_AA_AF:
+      type: double
+    ARIC5606_EA_AC:
+      type: integer
+    ARIC5606_EA_AF:
+      type: double
+    ESP6500_AA_AF:
+      type: double
+    ESP6500_EA_AF:
+      type: double
+    aggregation_pred_lr:
+      type: string
+    aggregation_pred_radial_svm:
+      type: string
+    aggregation_score_lr:
+      type: double
+    aggregation_score_radial_svm:
+      type: double
+    allele_num:
+      type: integer
+    cadd_phred:
+      type: double
+    cadd_raw:
+      type: double
+    cdna_length:
+      type: integer
+    cdna_pos:
+      type: integer
+    cds_length:
+      type: integer
+    cds_pos:
+      type: integer
+    change_type:
+      type: string
+    check_insilico:
+      type: integer
+    check_insilico_username:
+      type: string
+    check_segregation:
+      type: string
+    check_segregation_username:
+      type: string
+    check_somatic_change:
+      type: integer
+    check_somatic_change_username:
+      type: string
+    check_validated_change:
+      type: integer
+    check_validated_change_username:
+      type: string
+    clinvar_clnsig:
+      type: string
+    clinvar_rs:
+      type: string
+    clinvar_trait:
+      type: string
+    confidence_by_depth:
+      type: float
+    consensus_prediction:
+      type: integer
+    cosmic_count:
+      type: integer
+    cosmic_id:
+      type: string
+    dbsnp_id:
+      type: string
+    dbsnp_id_141:
+      type: string
+    downsampled:
+      type: boolean
+    evaluation:
+      type: integer
+    evaluation_comments:
+      type: string
+    evaluation_username:
+      type: string
+    exon_intron_rank:
+      type: integer
+    exon_intron_total:
+      type: integer
+    fathmm_pred:
+      type: string
+    fathmm_score:
+      type: double
+    fisher_strand_bias:
+      type: float
+    found_in_crap:
+      type: boolean
+    found_in_exomes_haplotype_caller:
+      type: boolean
+    found_in_exomes_lifescope:
+      type: boolean
+    found_in_genomes_haplotype_caller:
+      type: boolean
+    found_in_panels_haplotype_caller:
+      type: boolean
+    found_in_panels_torrent_caller:
+      type: boolean
+    gene_ensembl:
+      type: string
+    gene_symbol:
+      type: string
+    gerp_nr:
+      type: double
+    gerp_rs:
+      type: double
+    gonl_ac:
+      type: integer
+    gonl_af:
+      type: double
+    haplotype_score:
+      type: double
+    hgvs_dna:
+      type: string
+    hgvs_protein:
+      type: string
+    history:
+      type: string
+    insert_date:
+      type: timestamp
+    is_scSNV_Ensembl:
+      type: boolean
+    is_scSNV_RefSeq:
+      type: boolean
+    largest_homopolymer:
+      type: integer
+    lof_tolerant_or_recessive_gene:
+      type: string
+    lrt_pred:
+      type: string
+    lrt_score:
+      type: double
+    mapping_quality:
+      type: float
+    mapping_quality_zero_read:
+      type: float
+    mle_allele_count:
+      type: integer
+    mle_allele_frequency:
+      type: float
+    mutation_assessor_pred:
+      type: string
+    mutation_assessor_score:
+      type: double
+    mutation_taster_pred:
+      type: string
+    mutation_taster_score:
+      type: double
+    number_genes:
+      type: integer
+    other_effects:
+      type: boolean
+    phastCons100way_vertebrate:
+      type: double
+    phastCons46way_placental:
+      type: double
+    phastCons46way_primate:
+      type: double
+    phyloP100way_vertebrate:
+      type: double
+    phyloP46way_placental:
+      type: double
+    phyloP46way_primate:
+      type: double
+    pph2_hdiv_score:
+      type: double
+    pph2_hvar_pred:
+      type: string
+    pph2_hvar_score:
+      type: double
+    protein_length:
+      type: integer
+    protein_pos:
+      type: integer
+    public_comments:
+      type: string
+    rank_sum_test_base_qual:
+      type: double
+    rank_sum_test_read_mapping_qual:
+      type: double
+    rank_sum_test_read_pos_bias:
+      type: double
+    reliability_index:
+      type: integer
+    repeat_number_alt:
+      type: integer
+    repeat_number_ref:
+      type: integer
+    repeat_unit:
+      type: string
+    short_tandem_repeat:
+      type: boolean
+    sift_pred:
+      type: string
+    sift_score:
+      type: float
+    siphy_29way_log_odds:
+      type: double
+    siphy_29way_pi:
+      type: string
+    snpeff_effect:
+      type: string
+    snpeff_impact:
+      type: string
+    splicing_ada_pred:
+      type: string
+    splicing_ada_score:
+      type: double
+    splicing_rf_pred:
+      type: string
+    splicing_rf_score:
+      type: double
+    transcript_ensembl:
+      type: string
+    transcript_refseq_mrna:
+      type: string
+    transcript_refseq_prot:
+      type: string
+    transcript_uniprot_acc:
+      type: string
+    transcript_uniprot_id:
+      type: string
+    unisnp_id:
+      type: string
+    vest_score:
+      type: double

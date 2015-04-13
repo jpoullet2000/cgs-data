@@ -1,0 +1,45 @@
+Table name	Field 	Type	Description	Example
+run	id	integer	run id	2798279
+	platform	string	run platform	Illumina Nextseq, HiSeq 2000
+	outsourcing	string	run outsourcing	NA,Bright Core VUB, BGI
+	date_creation	date	creation date	20140102
+	date_modification	date	modification date 	20140229
+				
+sample	id	integer	sample id (internal IRIDIA number)	280982
+	customer_sample_id	string	customer_sample_id (USER number)	DESG228902
+	type	string	sample type	blood, tissue, cell
+	date_creation	date	creation date	20140102
+	date_modification	date	modification date 	20140229
+				
+sample_files	id	integer	id 	
+	internal_sample_id	integer	sample id (internal IRIDIA number)	2980
+	file_path	string	file path (relative with root=/usr/center/data/)	RAW/380938_20141110.vcf.gz, AVRO/380938_20141110.avro
+	file_type	string	file type	vcf, fastq, bam
+	date_creation	date	creation date	20140102
+	date_modification	date	modification date 	20140229
+				
+				
+patient	id	integer	patient ID (IRIDIA number)	2089
+	customer_patient_id	string	customer_patient_id (USER number)	DEDD8902
+	date_creation	date	creation date	20140102
+	date_modification	date	modification date 	20140229
+				
+				
+pathology	id	integer	pathology ID	890380
+	name	string	pathology name	brugada
+	date_creation	date	creation date	20140102
+	date_modification	date	modification date 	20140229
+				
+				
+sample_has_pathology	id	integer	sample-pathology join id 	21
+	sample_id	integer	sample id (internal IRIDIA number)	222
+	pathology_id	integer	pathology ID	279287
+	date_creation	date	creation date	20140102
+	date_modification	date	modification date 	20140229
+				
+				
+patient_has_sample	id	integer	patient-sample join id	2798
+	patient_id	integer	patient ID (IRIDIA number)	22343
+	sample_id	integer	sample id (internal IRIDIA number)	223
+	date_creation	date	creation date	20140102
+	date_modification	date	modification date 	20140229
