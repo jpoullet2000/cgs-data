@@ -1,0 +1,82 @@
+pathology:
+  columns:
+    date_creation:
+      type: date
+    date_modification:
+      type: date
+    id:
+      type: integer
+    name:
+      type: string
+patient:
+  columns:
+    customer_patient_id:
+      type: string
+    date_creation:
+      type: date
+    date_modification:
+      type: date
+    id:
+      type: integer
+patient_has_sample:
+  columns:
+    date_creation:
+      type: date
+    date_modification:
+      type: date
+    id:
+      type: integer
+    patient_id:
+      type: integer
+    sample_id:
+      type: integer
+run:
+  columns:
+    date_creation:
+      type: date
+    date_modification:
+      type: date
+    id:
+      type: integer
+    outsourcing:
+      type: string
+    platform:
+      type: string
+sample:
+  columns:
+    customer_sample_id:
+      type: string
+    date_creation:
+      type: date
+    date_modification:
+      type: date
+    id:
+      type: integer
+    type:
+      type: string
+sample_files:
+  columns:
+    date_creation:
+      type: date
+    date_modification:
+      type: date
+    file_path:
+      type: string
+    file_type:
+      type: string
+    id:
+      type: integer
+    internal_sample_id:
+      type: integer
+sample_has_pathology:
+  columns:
+    date_creation:
+      type: date
+    date_modification:
+      type: date
+    id:
+      type: integer
+    pathology_id:
+      type: integer
+    sample_id:
+      type: integer
