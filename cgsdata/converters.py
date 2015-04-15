@@ -4,7 +4,7 @@ path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../cgsdatatools'
 if not path in sys.path:
     sys.path.insert(1, path)
 del path
-from cgsdatatools import flatten, id_generator, uniqueInList
+from cgsdatatools.cgsdatatools import flatten, id_generator, uniqueInList
 from .exception import *
 import avro.schema
 from avro.datafile import DataFileReader, DataFileWriter
